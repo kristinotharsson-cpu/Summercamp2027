@@ -1,0 +1,4 @@
+.DS_Store
+build/weekly-findings.json
+build/weekly-test.log
+*.log
