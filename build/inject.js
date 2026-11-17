@@ -574,3 +574,79 @@ function toggleCard(ev, btn){
   btn.innerHTML = (open ? 'Fewer details ' : 'More details ') + '<span class="chev">▾</span>';
   return false;
 }
+
+/* ════════ SHAREABLE LISTS ════════
+   Camp ids are slugs of the camp name, so a shared link keeps pointing at the
+   right camps even after the weekly job adds or reorders entries. Positions
+   would not survive that. */
+function shareUrl(){
+  return location.origin + location.pathname + '#list=' + saved.join(',');
+}
+function copyShareLink(){
+  if (!saved.length){ showToast('Save some camps first'); return; }
+  const url = shareUrl();
+  const done = () => showToast('Link copied — whoever opens it gets these ' + saved.length + ' camps');
+  if (navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(url).then(done).catch(() => fallbackCopy(url, done));
+  } else {
+    fallbackCopy(url, done);
+  }
+}
+function fallbackCopy(text, done){
+  const ta = document.createElement('textarea');
+  ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+  document.body.appendChild(ta); ta.select();
+  try { document.execCommand('copy'); done(); }
+  catch(e) { showToast('Could not copy — the link is in the address bar'); location.hash = 'list=' + saved.join(','); }
+  ta.remove();
+}
+
+let pendingShared = null;
+function showShareBar(html, acts){
+  let bar = document.getElementById('share-bar');
+  if (!bar){
+    bar = document.createElement('div');
+    bar.className = 'share-bar'; bar.id = 'share-bar';
+    const wrap = document.querySelector('.grid-wrap');
+    wrap.insertBefore(bar, wrap.firstChild);
+  }
+  bar.innerHTML = '<span class="ic">\u{1F517}</span><span>' + html + '</span><span class="acts">' + acts + '</span>';
+  bar.classList.add('show');
+}
+function dismissShareBar(){
+  const b = document.getElementById('share-bar');
+  if (b) b.classList.remove('show');
+  pendingShared = null;
+}
+function acceptShared(mode){
+  if (!pendingShared) return;
+  saved = mode === 'replace' ? pendingShared.slice()
+                             : saved.concat(pendingShared.filter(id => saved.indexOf(id) === -1));
+  persistList(); updateListBtn(); filter(); dismissShareBar();
+  showToast(mode === 'replace' ? 'List replaced' : 'Camps added to your list');
+}
+function readSharedList(){
+  const m = location.hash.match(/list=([^&]+)/);
+  if (!m) return;
+  const ids = decodeURIComponent(m[1]).split(',').map(s => s.trim()).filter(Boolean);
+  const valid = ids.filter(id => camps.some(c => c.id === id));
+  const dropped = ids.length - valid.length;
+  if (!valid.length) return;
+  if (!saved.length){
+    saved = valid; persistList(); updateListBtn();
+    showShareBar('<strong>Someone shared ' + valid.length + ' camp' + (valid.length === 1 ? '' : 's')
+      + ' with you.</strong> They are saved to your list'
+      + (dropped ? ' (' + dropped + ' no longer in the directory)' : '') + '.',
+      '<button onclick="openList()">Compare them</button>'
+      + '<button class="ghost" onclick="dismissShareBar()">Dismiss</button>');
+  } else {
+    pendingShared = valid;
+    showShareBar('<strong>Someone shared ' + valid.length + ' camp' + (valid.length === 1 ? '' : 's')
+      + ' with you.</strong> You already have ' + saved.length + ' saved.',
+      '<button onclick="acceptShared(\'add\')">Add to mine</button>'
+      + '<button class="ghost" onclick="acceptShared(\'replace\')">Replace mine</button>'
+      + '<button class="ghost" onclick="dismissShareBar()">Ignore</button>');
+  }
+}
+readSharedList();
+filter();
