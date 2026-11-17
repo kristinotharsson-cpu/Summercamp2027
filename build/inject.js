@@ -91,11 +91,11 @@ function renderCompare(){
 }
 
 /* ── export ── */
-const PLAN_HEAD = ['Pick','Status','Rating','For which child','Family notes'];
+const PLAN_HEAD = ['Pick','Status','Rating','For which child','Friends going','Family notes'];
 const EXP_HEAD = PLAN_HEAD.concat(['Camp','Neighborhood','2027 dates published?','2027 dates','Registration opens','Registration detail','Ages','Cost','Hours','Extended day','Getting there','JQES favorite','Categories','Location','Notes','Website','Last checked']);
 function exportRows(){
   return [EXP_HEAD].concat(savedCamps().map(c => [
-    '', '', '', '', '',                       // the family fills these in
+    '', '', '', '', '', '',                   // the family fills these in
     c.name, c.area || '',
     c.status === 'confirmed' ? 'Yes' : 'Not yet',
     c.dates,
@@ -146,16 +146,19 @@ function buildPlannerWorkbook(){
   return loadExcelJS().then(ExcelJS => {
     const rows = exportRows(), head = rows[0], body = rows.slice(1);
     const nCols = head.length, firstDataRow = 5, lastRow = firstDataRow + body.length - 1;
+    const col = n => head.indexOf(n) + 1;          // 1-based column for a header
+    const idx = n => head.indexOf(n);              // 0-based index into a data row
+    const nPlan = PLAN_HEAD.length;
 
     const wb = new ExcelJS.Workbook();
     wb.creator = 'JQES School Community Council';
     const ws = wb.addWorksheet('Summer 2027 Planner', {
-      views: [{state:'frozen', xSplit:5, ySplit:4}],
+      views: [{state:'frozen', xSplit:PLAN_HEAD.length, ySplit:4}],
       pageSetup: {orientation:'landscape', fitToPage:true, fitToWidth:1, fitToHeight:0,
                   paperSize:1, margins:{left:0.3,right:0.3,top:0.4,bottom:0.4,header:0.2,footer:0.2}}
     });
 
-    const WIDTHS = [7,15,9,18,30, 34,24,14,46,18,42,22,34,32,13,46,13,26,28,40,42,13];
+    const WIDTHS = [7,15,9,18,26,28, 34,24,14,46,18,42,22,34,32,13,46,13,26,28,40,42,13];
     ws.columns = head.map((h,i) => ({header:h, width: WIDTHS[i] || 18}));
 
     // ── title band ──
@@ -170,7 +173,7 @@ function buildPlannerWorkbook(){
     const s2 = ws.getCell(2,1);
     s2.value = body.length + ' saved camp' + (body.length===1?'':'s') + ' · exported '
              + new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})
-             + '  —  tick Pick, set Status and Rating as you work through them. '
+             + '  —  tick Pick, set Status and Rating, and note who else is going. '
              + 'Green means the camp has published its 2027 dates.';
     s2.fill = fill(CREAM); s2.font = {italic:true, size:10, color:{argb:'FF7B3F00'}};
     s2.alignment = {vertical:'middle', horizontal:'left', indent:1, wrapText:false};
@@ -182,7 +185,7 @@ function buildPlannerWorkbook(){
     head.forEach((h,i) => {
       const c = hr.getCell(i+1);
       c.value = h;
-      c.fill = fill(i < 5 ? 'FF7B3F00' : RED);
+      c.fill = fill(i < nPlan ? 'FF7B3F00' : RED);
       c.font = {bold:true, size:10, color:{argb:'FFFFFFFF'}};
       c.alignment = {vertical:'middle', horizontal:'center', wrapText:true};
       c.border = box;
@@ -196,31 +199,31 @@ function buildPlannerWorkbook(){
         const c = row.getCell(ci+1);
         c.value = v;
         c.border = box;
-        c.alignment = {vertical:'top', wrapText: ci >= 5, horizontal: ci < 3 ? 'center' : 'left'};
+        c.alignment = {vertical:'top', wrapText: ci >= nPlan, horizontal: ci < 3 ? 'center' : 'left'};
         c.font = {size:10};
       });
       row.height = 42;
-      const camp = row.getCell(6);
+      const camp = row.getCell(col('Camp'));
       camp.font = {size:11, bold:true};
-      if (r[16] === '★') { camp.fill = fill(GOLD); camp.font = {size:11, bold:true, color:{argb:'FF5C2E00'}}; }
-      else if (ri % 2) { for (let i=6;i<=nCols;i++) if (!row.getCell(i).fill) row.getCell(i).fill = fill('FFFAFAFA'); }
+      if (r[idx('JQES favorite')] === '★') { camp.fill = fill(GOLD); camp.font = {size:11, bold:true, color:{argb:'FF5C2E00'}}; }
+      else if (ri % 2) { for (let i=nPlan+1;i<=nCols;i++) if (!row.getCell(i).fill) row.getCell(i).fill = fill('FFFAFAFA'); }
 
-      const pub = row.getCell(8);
-      if (r[7] === 'Yes') { pub.fill = fill(GREEN); pub.font = {size:10, bold:true, color:{argb:GREEN_T}}; }
+      const pub = row.getCell(col('2027 dates published?'));
+      if (r[idx('2027 dates published?')] === 'Yes') { pub.fill = fill(GREEN); pub.font = {size:10, bold:true, color:{argb:GREEN_T}}; }
       else { pub.fill = fill(AMBER); pub.font = {size:10, bold:true, color:{argb:AMBER_T}}; }
       pub.alignment = {vertical:'top', horizontal:'center', wrapText:true};
 
-      const opens = row.getCell(10);
-      if (r[9] === 'Open now')        { opens.fill = fill(GREEN); opens.font = {size:10, bold:true, color:{argb:GREEN_T}}; }
-      else if (r[9] === 'Not announced'){ opens.fill = fill(GRAY);  opens.font = {size:10, color:{argb:GRAY_T}}; }
+      const opens = row.getCell(col('Registration opens'));
+      if (r[idx('Registration opens')] === 'Open now')        { opens.fill = fill(GREEN); opens.font = {size:10, bold:true, color:{argb:GREEN_T}}; }
+      else if (r[idx('Registration opens')] === 'Not announced'){ opens.fill = fill(GRAY);  opens.font = {size:10, color:{argb:GRAY_T}}; }
       else                             { opens.fill = fill(BLUE);  opens.font = {size:10, bold:true, color:{argb:BLUE_T}}; }
       opens.alignment = {vertical:'top', horizontal:'center', wrapText:true};
 
-      const site = row.getCell(21);
-      if (r[20]) { site.value = {text:r[20], hyperlink:r[20]}; site.font = {size:9, color:{argb:'FF118CCD'}, underline:true}; }
+      const site = row.getCell(col('Website'));
+      if (r[idx('Website')]) { const u = r[idx('Website')]; site.value = {text:u, hyperlink:u}; site.font = {size:9, color:{argb:'FF118CCD'}, underline:true}; }
 
       // the family's own columns: roomy, cream, clearly theirs to fill
-      for (let i=1;i<=5;i++){ const c=row.getCell(i); c.fill = fill(CREAM); c.border = box; }
+      for (let i=1;i<=nPlan;i++){ const c=row.getCell(i); c.fill = fill(CREAM); c.border = box; }
     });
 
     // ── dropdowns so nobody has to remember the words ──
@@ -301,7 +304,7 @@ function buildPrintSheet(){
     + '<table class="ps-table"><colgroup><col class="c-tick"><col class="c-camp"><col class="c-area">'
     + '<col class="c-dates"><col class="c-reg"><col class="c-ages"><col class="c-cost"><col class="c-notes"></colgroup>'
     + '<thead><tr><th class="tick"></th><th>Camp</th><th>Neighborhood</th><th>2027 dates</th>'
-    + '<th>Registration</th><th>Ages</th><th>Cost</th><th>Notes</th></tr></thead><tbody>'
+    + '<th>Registration</th><th>Ages</th><th>Cost</th><th>Notes / friends going</th></tr></thead><tbody>'
     + list.map(c =>
         '<tr class="' + (c.status === 'confirmed' ? 'ok' : 'tbc') + '">'
         + '<td class="tick"></td>'
