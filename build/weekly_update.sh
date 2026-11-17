@@ -5,7 +5,7 @@
 # updates. If it is not, the sweep still runs and you get the findings to review by hand.
 # Log in once with `claude login` in Terminal.app and this upgrades itself.
 set -u
-DIR="/Users/cseries/Desktop/Claude/jqes/summer-camps-2027"
+DIR="/Users/cseries/projects/summer-camps-2027"
 LOG="$DIR/build/weekly-run.log"
 PY="/opt/homebrew/bin/python3"
 CLAUDE="/opt/homebrew/bin/claude"
