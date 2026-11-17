@@ -180,12 +180,12 @@ sub('<div class="toast" id="toast"></div>',
       <button class="exp-btn exp-xlsx" onclick="exportXLSX()">⬇ Excel (.xlsx)</button>
       <button class="exp-btn exp-csv"  onclick="exportCSV()">⬇ CSV</button>
       <button class="exp-btn exp-gs"   onclick="copyForSheets()" title="Paste into one Google Sheet that several families can edit together">📋 Copy for a shared Google Sheet</button>
-      <button class="exp-btn" style="background:#0D9488" onclick="copyShareLink()" title="Copies a link holding just these camps. Your ratings and notes stay on this device.">\U0001f517 Copy link to my list</button>
+      <button class="exp-btn" style="background:#0D9488" onclick="copyAsMessage()" title="Copies a ready-to-send message with the camp names, dates and a blank for the weeks you are considering">\U0001f4ac Copy as a text</button>
       <button class="exp-btn" style="background:#7C3AED" onclick="icsForSavedList()">\u23f0 Registration reminders (.ics)</button>
       <button class="exp-btn exp-print" onclick="printList()" title="Opens your print dialog — choose Save as PDF for a landscape planner">🖨 Print / Save as PDF</button>
       <button class="exp-btn" style="background:#fff;color:var(--gray);border:1.5px solid var(--border);margin-left:auto" onclick="clearList()">Clear list</button>
     </div>
-    <p class="share-help"><strong>Sharing this list.</strong> <em>Copy link to my list</em> gives someone the same camps to look at \u2014 just the camps, not your ratings, notes or who else is going, and it is a snapshot, so later changes will not reach them. To plan <i>with</i> other families, use <em>Copy for a shared Google Sheet</em> and paste into one Sheet everyone can edit.</p>
+    <p class="share-help"><strong>Sharing this list.</strong> <em>Copy as a text</em> gives you a message ready to paste into Messages or email \u2014 camp names, dates and a blank to drop in the weeks you are thinking about. To plan <i>with</i> other families, use <em>Copy for a shared Google Sheet</em> and paste into one Sheet everyone can edit.</p>
     <div id="cmp-body"></div>
   </div>
 </div>
