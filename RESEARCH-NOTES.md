@@ -26,7 +26,7 @@ Every program checked against its own website on **November 17, 2026**.
 ## JQES fan favorites
 
 - **Hale Day Camp (Westwood)** — 2027 dates published
-  - Hale's free buses do not currently stop in Chinatown or downtown — the closest are Dorchester, Roslindale, West Roxbury and Jamaica Plain. JQES is looking into a pickup at school. Email josiahquincyparentcouncil@gmail.com to let us know if you would be interested.
+  - Hale's free buses don't stop in Chinatown or downtown. The closest stops are Dorchester, Roslindale, West Roxbury and Jamaica Plain. We need at least 10 JQES kids to get a bus to pick up at school — email josiahquincyparentcouncil@gmail.com to let us know you're interested.
 - **Minni Summer Program – Beacon Hill** — 2027 dates published
 - **Nike Tennis Camp at MIT** — 2027 dates published
 - **BMP Summer Strings (Boston Music Project)** — 2027 dates published
