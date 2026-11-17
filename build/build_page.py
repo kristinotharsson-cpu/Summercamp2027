@@ -35,16 +35,17 @@ sub('<span>Community Resource · Summer 2026</span>',
 sub('<h1>Boston Summer<br>Camps <span class="accent">2026</span></h1>',
     '<h1>Boston Summer<br>Camps <span class="accent">2027</span></h1>', 'h1')
 sub('<p>A community resource for JQES families — search and filter programs across the city. Updated for 2026.</p>',
-    '<p>A community resource for JQES families — search, compare and save programs across the city. '
-    'Every program re-checked against its own website on November 17, 2026.</p>', 'subtitle')
+    '<p>A community resource for JQES families.</p>', 'subtitle')
 sub('<div class="stat-chip"><div class="n" id="total-stat">56</div><div class="l">Programs</div></div>',
     '<div class="stat-chip"><div class="n" id="total-stat">0</div><div class="l">Programs</div></div>\n'
     '      <div class="stat-chip"><div class="n" id="conf-stat">0</div><div class="l">2027 Dates Set</div></div>\n'
     '      <div class="stat-chip"><div class="n" id="reg-stat">0</div><div class="l">Registration Open</div></div>', 'stats')
 sub('<div class="stat-chip"><div class="n" id="free-stat">11</div><div class="l">Free / Low-Cost</div></div>',
-    '<div class="stat-chip"><div class="n" id="free-stat">0</div><div class="l">Free / Low-Cost</div></div>', 'free stat')
+    '', 'free chip removed')
 sub('<div class="stat-chip"><div class="n" id="ext-stat">8</div><div class="l">Extended Day</div></div>',
-    '<div class="stat-chip"><div class="n" id="ext-stat">0</div><div class="l">Extended Day</div></div>', 'ext stat')
+    '', 'ext chip removed')
+sub("document.getElementById('free-stat').textContent=camps.filter(isFree).length;", '', 'free stat init')
+sub("document.getElementById('ext-stat').textContent=camps.filter(c=>c.extendedDay==='Yes').length;", '', 'ext stat init')
 
 # ── 4. replace the stale 2026 Google Sheet strip ──────────────────
 a = src.index('<div style="background:rgba(255,255,255,0.08);border-top:1px solid rgba(255,255,255,0.12);padding:10px 40px;')
@@ -53,9 +54,7 @@ src = src[:a] + (
   '<div style="background:rgba(255,255,255,0.08);border-top:1px solid rgba(255,255,255,0.12);padding:10px 40px;'
   'display:flex;align-items:center;gap:10px;flex-wrap:wrap;">\n'
   '    <span style="font-size:0.8rem;color:rgba(255,255,255,0.75);">'
-  f'<strong style="color:#FCD34D;">{conf} of {len(camps)}</strong> programs have published their summer 2027 dates. '
-  'The rest are flagged and shown when you untick &ldquo;2027 dates confirmed only&rdquo;.</span>\n'
-  '    <span style="font-size:0.8rem;color:rgba(255,255,255,0.55);">Save camps with ☆ and export your list to Excel, CSV or Google Sheets.</span>\n'
+  f'<strong style="color:#FCD34D;">{conf} of {len(camps)}</strong> programs have published their 2027 dates.</span>\n'
   '    <span id="freshness" style="font-size:0.8rem;"></span>\n'
   '  </div>\n') + src[b:]
 edits += 1

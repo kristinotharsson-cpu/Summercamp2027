@@ -335,9 +335,53 @@ function clearAllFilters(){
   showToast('Filters cleared');
 }
 function syncClearBtn(){
+  syncMoreBtn();
   const b = document.getElementById('clear-f');
   if (!b) return;
   const n = activeFilters().length;
   b.style.display = n ? 'inline-flex' : 'none';
   b.textContent = '✕ Clear ' + n + ' filter' + (n === 1 ? '' : 's');
 }
+
+/* ════════ CALMER HEADER: fold secondary filters away ════════ */
+const SECONDARY = ['cost-f','ext-f','reg-f','week-f'];
+function secondaryActiveCount(){
+  let n = SECONDARY.filter(id => { const e = document.getElementById(id); return e && e.value; }).length;
+  const fav = document.getElementById('fav-f');
+  if (fav && fav.checked) n++;
+  return n;
+}
+function syncMoreBtn(){
+  const b = document.getElementById('more-btn'), r = document.getElementById('more-row');
+  if (!b || !r) return;
+  const n = secondaryActiveCount();
+  b.innerHTML = 'More filters ' + (r.classList.contains('open') ? '▴' : '▾')
+              + (n ? ' <span class="n">' + n + '</span>' : '');
+}
+function toggleMore(){
+  document.getElementById('more-row').classList.toggle('open');
+  syncMoreBtn();
+}
+(function tidyControls(){
+  const row = document.querySelector('.search-row');
+  const conf = document.querySelector('.conf-toggle');
+  if (!row || !conf) return;
+
+  // neighborhood is the question families actually ask first — put it next to the search box
+  const area = document.getElementById('area-f'), box = row.querySelector('.search-box');
+  if (area && box) box.insertAdjacentElement('afterend', area);
+
+  const more = document.createElement('div');
+  more.className = 'more-row'; more.id = 'more-row';
+  SECONDARY.forEach(id => { const e = document.getElementById(id); if (e) more.appendChild(e); });
+  const fav = document.querySelector('.fav-toggle'); if (fav) more.appendChild(fav);
+
+  const btn = document.createElement('button');
+  btn.type = 'button'; btn.className = 'more-btn'; btn.id = 'more-btn';
+  btn.addEventListener('click', toggleMore);
+  conf.insertAdjacentElement('afterend', btn);
+
+  row.parentNode.insertBefore(more, row.nextSibling);
+  if (secondaryActiveCount()) more.classList.add('open');   // never hide an active filter
+  syncMoreBtn();
+})();
