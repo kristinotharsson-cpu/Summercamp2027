@@ -585,7 +585,8 @@ function shareUrl(){
 function copyShareLink(){
   if (!saved.length){ showToast('Save some camps first'); return; }
   const url = shareUrl();
-  const done = () => showToast('Link copied — whoever opens it gets these ' + saved.length + ' camps');
+  const done = () => showToast('Link copied — it carries these ' + saved.length
+    + ' camps, not your ratings or notes');
   if (navigator.clipboard && window.isSecureContext){
     navigator.clipboard.writeText(url).then(done).catch(() => fallbackCopy(url, done));
   } else {

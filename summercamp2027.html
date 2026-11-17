@@ -342,6 +342,10 @@ table.cmp .rm:hover{color:var(--red);}
 .share-bar button{background:var(--blue);color:#fff;border:none;border-radius:7px;padding:7px 13px;font-family:inherit;font-size:0.78rem;font-weight:700;cursor:pointer;white-space:nowrap;}
 .share-bar button.ghost{background:#fff;color:#1E40AF;border:1.5px solid #BFDBFE;}
 @media(max-width:640px){.share-bar{flex-wrap:wrap;}.share-bar .acts{margin-left:0;width:100%;}.share-bar .acts button{flex:1;}}
+.share-help{margin:0 28px 4px;padding:11px 14px;background:var(--gray-lt);border:1px solid var(--border);border-radius:9px;font-size:0.79rem;line-height:1.55;color:#555;}
+.share-help strong{color:var(--text);}
+.share-help em{font-style:normal;font-weight:700;color:#0D7A6F;}
+@media(max-width:720px){.share-help{margin-left:16px;margin-right:16px;}}
 </style>
 </head>
 <body>
@@ -599,12 +603,13 @@ table.cmp .rm:hover{color:var(--red);}
     <div class="export-row">
       <button class="exp-btn exp-xlsx" onclick="exportXLSX()">⬇ Excel (.xlsx)</button>
       <button class="exp-btn exp-csv"  onclick="exportCSV()">⬇ CSV</button>
-      <button class="exp-btn exp-gs"   onclick="copyForSheets()">📋 Copy for Google Sheets</button>
-      <button class="exp-btn" style="background:#0D9488" onclick="copyShareLink()" title="Copy a link that opens this same list for whoever you send it to">🔗 Copy share link</button>
+      <button class="exp-btn exp-gs"   onclick="copyForSheets()" title="Paste into one Google Sheet that several families can edit together">📋 Copy for a shared Google Sheet</button>
+      <button class="exp-btn" style="background:#0D9488" onclick="copyShareLink()" title="Copies a link holding just these camps. Your ratings and notes stay on this device.">🔗 Copy link to my list</button>
       <button class="exp-btn" style="background:#7C3AED" onclick="icsForSavedList()">⏰ Registration reminders (.ics)</button>
       <button class="exp-btn exp-print" onclick="printList()" title="Opens your print dialog — choose Save as PDF for a landscape planner">🖨 Print / Save as PDF</button>
       <button class="exp-btn" style="background:#fff;color:var(--gray);border:1.5px solid var(--border);margin-left:auto" onclick="clearList()">Clear list</button>
     </div>
+    <p class="share-help"><strong>Sharing this list.</strong> <em>Copy link to my list</em> gives someone the same camps to look at — just the camps, not your ratings, notes or who else is going, and it is a snapshot, so later changes will not reach them. To plan <i>with</i> other families, use <em>Copy for a shared Google Sheet</em> and paste into one Sheet everyone can edit.</p>
     <div id="cmp-body"></div>
   </div>
 </div>
@@ -1591,7 +1596,8 @@ function shareUrl(){
 function copyShareLink(){
   if (!saved.length){ showToast('Save some camps first'); return; }
   const url = shareUrl();
-  const done = () => showToast('Link copied — whoever opens it gets these ' + saved.length + ' camps');
+  const done = () => showToast('Link copied — it carries these ' + saved.length
+    + ' camps, not your ratings or notes');
   if (navigator.clipboard && window.isSecureContext){
     navigator.clipboard.writeText(url).then(done).catch(() => fallbackCopy(url, done));
   } else {

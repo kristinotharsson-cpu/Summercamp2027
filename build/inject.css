@@ -139,3 +139,7 @@ table.cmp .rm:hover{color:var(--red);}
 .share-bar button{background:var(--blue);color:#fff;border:none;border-radius:7px;padding:7px 13px;font-family:inherit;font-size:0.78rem;font-weight:700;cursor:pointer;white-space:nowrap;}
 .share-bar button.ghost{background:#fff;color:#1E40AF;border:1.5px solid #BFDBFE;}
 @media(max-width:640px){.share-bar{flex-wrap:wrap;}.share-bar .acts{margin-left:0;width:100%;}.share-bar .acts button{flex:1;}}
+.share-help{margin:0 28px 4px;padding:11px 14px;background:var(--gray-lt);border:1px solid var(--border);border-radius:9px;font-size:0.79rem;line-height:1.55;color:#555;}
+.share-help strong{color:var(--text);}
+.share-help em{font-style:normal;font-weight:700;color:#0D7A6F;}
+@media(max-width:720px){.share-help{margin-left:16px;margin-right:16px;}}
