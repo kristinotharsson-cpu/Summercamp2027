@@ -306,6 +306,32 @@ table.cmp .rm:hover{color:var(--red);}
   col.c-ages{width:9%} col.c-cost{width:13%} col.c-notes{width:15%}
   .ps-foot{margin-top:9px;font-size:7pt;color:#666;border-top:1px solid #DDD;padding-top:5px;}
 }
+
+/* ── phones: show the decision line, fold the rest away ── */
+.mini-dates{display:none;}
+.card-more{display:none;}
+@media(max-width:640px){
+  .mini-dates{display:flex;flex-direction:column;gap:1px;border-top:1px solid var(--border);padding-top:9px;margin-bottom:10px;}
+  .mini-dates .ml{font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--gray);}
+  .mini-dates .mv{font-size:0.8rem;font-weight:600;line-height:1.35;color:var(--text);}
+  .card:not(.open) .badges-row,
+  .card:not(.open) .status-strip,
+  .card:not(.open) .fav-note,
+  .card:not(.open) .card-desc,
+  .card:not(.open) .meta{display:none!important;}
+  .card.open .mini-dates{display:none;}
+  .card-more{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;margin-top:2px;padding:9px 0;background:var(--gray-lt);border:1.5px solid var(--border);border-radius:8px;font-family:'Nunito Sans',Avenir,sans-serif;font-size:0.78rem;font-weight:700;color:#555;cursor:pointer;}
+  .card-more:hover{border-color:var(--orange);color:var(--orange);}
+  .card.open .card-more .chev{transform:rotate(180deg);}
+  .card-more .chev{transition:transform .18s;display:inline-block;}
+  .card-body{padding:16px 16px 14px;}
+  .card-desc{max-height:none;}
+}
+@media(max-width:640px){
+  .card-top{flex-direction:column;align-items:stretch;gap:9px;}
+  .card-top > div:last-child{flex-direction:row!important;flex-wrap:wrap;align-items:center!important;justify-content:flex-start!important;gap:6px!important;}
+  .card-name{font-size:1.05rem;}
+}
 </style>
 </head>
 <body>
@@ -804,6 +830,7 @@ function renderGrid(list){
         ${regFlag}
         ${c.regStatus==='opens'&&c.regDate?`<div class="remind-row"><button class="remind-btn" onclick="return addToGoogleCal(event,'${c.id}')" title="Opens a pre-filled event in Google Calendar — you still have to press Save. Needs you to be signed in to Google.">⏰ Google Calendar</button><button class="remind-btn ics" onclick="return downloadIcs(event,'${c.id}')" title="Downloads a calendar file that opens in Apple Calendar, Outlook or Google Calendar. Works whether or not you are signed in.">📅 Apple / Outlook (.ics)</button></div>`:''}
         ${c.favoriteNote?`<div class="fav-note">${c.favoriteNote.replace(/([\w.+-]+@[\w.-]+)/,'<span class="mail-link" role="link" tabindex="0" onclick="mailTo(event,&quot;$1&quot;)" onkeydown="if(event.key===&quot;Enter&quot;)mailTo(event,&quot;$1&quot;)">$1</span>')}</div>`:''}
+        <div class="mini-dates"><span class="ml">2027 dates</span><span class="mv">${clipFor(c.dates, 95)}</span></div>
         <div class="card-desc">${c.description}</div>
         <div class="meta">
           <div class="mi"><span class="ml">Ages</span><span class="mv">${c.ages}</span></div>
@@ -817,6 +844,7 @@ function renderGrid(list){
           ${c.contact?`<div class="mi full"><span class="ml">Contact</span><span class="mv">${c.contact}</span></div>`:''}
           ${c.ref2026?`<div class="mi full"><span class="ref-line">2026 for reference: ${c.ref2026.replace(/\n/g,' ')}</span></div>`:''}
         </div>
+        <button class="card-more" onclick="return toggleCard(event,this)" aria-expanded="false">More details <span class="chev">▾</span></button>
       </div>
     </a>`;
   }).join('');
@@ -1465,7 +1493,8 @@ function activeFilters(){
   if (sel('reg-f')) f.push({label:sel('reg-f'),  clear:()=>document.getElementById('reg-f').value=''});
   if (sel('week-f'))f.push({label:sel('week-f'), clear:()=>document.getElementById('week-f').value=''});
   if (ck('fav-f'))  f.push({label:'JQES favorites only', clear:()=>document.getElementById('fav-f').checked=false});
-  if (ck('conf-f')) f.push({label:'2027 dates confirmed only', clear:()=>document.getElementById('conf-f').checked=false});
+  if (ck('conf-f')) f.push({label:'2027 dates confirmed only', isDefault:true,
+    clear:()=>document.getElementById('conf-f').checked=false});
   if (typeof activeCat !== 'undefined' && activeCat !== 'all')
     f.push({label:'Category: ' + activeCat, clear:()=>{
       activeCat='all';
@@ -1474,7 +1503,7 @@ function activeFilters(){
   return f;
 }
 function clearAllFilters(){
-  activeFilters().forEach(f => f.clear());
+  activeFilters().filter(f => !f.isDefault).forEach(f => f.clear());
   filter();
   showToast('Filters cleared');
 }
@@ -1482,7 +1511,7 @@ function syncClearBtn(){
   syncMoreBtn();
   const b = document.getElementById('clear-f');
   if (!b) return;
-  const n = activeFilters().length;
+  const n = activeFilters().filter(f => !f.isDefault).length;
   b.style.display = n ? 'inline-flex' : 'none';
   b.textContent = '✕ Clear ' + n + ' filter' + (n === 1 ? '' : 's');
 }
@@ -1529,6 +1558,17 @@ function toggleMore(){
   if (secondaryActiveCount()) more.classList.add('open');   // never hide an active filter
   syncMoreBtn();
 })();
+
+/* ── phones: each card opens on demand ── */
+function toggleCard(ev, btn){
+  ev.preventDefault(); ev.stopPropagation();
+  const card = btn.closest('.card');
+  if (!card) return false;
+  const open = card.classList.toggle('open');
+  btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  btn.innerHTML = (open ? 'Fewer details ' : 'More details ') + '<span class="chev">▾</span>';
+  return false;
+}
 
 </script>
 </body>

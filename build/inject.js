@@ -498,7 +498,8 @@ function activeFilters(){
   if (sel('reg-f')) f.push({label:sel('reg-f'),  clear:()=>document.getElementById('reg-f').value=''});
   if (sel('week-f'))f.push({label:sel('week-f'), clear:()=>document.getElementById('week-f').value=''});
   if (ck('fav-f'))  f.push({label:'JQES favorites only', clear:()=>document.getElementById('fav-f').checked=false});
-  if (ck('conf-f')) f.push({label:'2027 dates confirmed only', clear:()=>document.getElementById('conf-f').checked=false});
+  if (ck('conf-f')) f.push({label:'2027 dates confirmed only', isDefault:true,
+    clear:()=>document.getElementById('conf-f').checked=false});
   if (typeof activeCat !== 'undefined' && activeCat !== 'all')
     f.push({label:'Category: ' + activeCat, clear:()=>{
       activeCat='all';
@@ -507,7 +508,7 @@ function activeFilters(){
   return f;
 }
 function clearAllFilters(){
-  activeFilters().forEach(f => f.clear());
+  activeFilters().filter(f => !f.isDefault).forEach(f => f.clear());
   filter();
   showToast('Filters cleared');
 }
@@ -515,7 +516,7 @@ function syncClearBtn(){
   syncMoreBtn();
   const b = document.getElementById('clear-f');
   if (!b) return;
-  const n = activeFilters().length;
+  const n = activeFilters().filter(f => !f.isDefault).length;
   b.style.display = n ? 'inline-flex' : 'none';
   b.textContent = '✕ Clear ' + n + ' filter' + (n === 1 ? '' : 's');
 }
@@ -562,3 +563,14 @@ function toggleMore(){
   if (secondaryActiveCount()) more.classList.add('open');   // never hide an active filter
   syncMoreBtn();
 })();
+
+/* ── phones: each card opens on demand ── */
+function toggleCard(ev, btn){
+  ev.preventDefault(); ev.stopPropagation();
+  const card = btn.closest('.card');
+  if (!card) return false;
+  const open = card.classList.toggle('open');
+  btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  btn.innerHTML = (open ? 'Fewer details ' : 'More details ') + '<span class="chev">▾</span>';
+  return false;
+}

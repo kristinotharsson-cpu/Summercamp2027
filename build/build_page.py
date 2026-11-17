@@ -234,6 +234,18 @@ sub('''      <button class="list-btn" id="list-btn" onclick="openList()"''',
 sub("""  renderGrid(list);""", """  renderGrid(list);
   syncClearBtn();""", 'sync clear button')
 
+sub("""        <div class="card-desc">${c.description}</div>""",
+    """        <div class="mini-dates"><span class="ml">2027 dates</span><span class="mv">${clipFor(c.dates, 95)}</span></div>
+        <div class="card-desc">${c.description}</div>""", 'mobile mini dates')
+
+sub("""        </div>
+      </div>
+    </a>`;""",
+    """        </div>
+        <button class="card-more" onclick="return toggleCard(event,this)" aria-expanded="false">More details <span class="chev">\u25be</span></button>
+      </div>
+    </a>`;""", 'mobile details toggle')
+
 sub('''// Init
 renderGrid(camps);''', '''// Init''', 'init render move')
 sub('''document.getElementById('results-bar').innerHTML=`Showing <strong>${camps.length}</strong> programs`;''',
