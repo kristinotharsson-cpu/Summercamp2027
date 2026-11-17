@@ -134,3 +134,10 @@ table.cmp .rm:hover{color:var(--red);}
 .share-help strong{color:var(--text);}
 .share-help em{font-style:normal;font-weight:700;color:#0D7A6F;}
 @media(max-width:720px){.share-help{margin-left:16px;margin-right:16px;}}
+
+/* ── preview the message before sending ── */
+.msg-text{width:100%;min-height:320px;font-family:'Nunito Sans',Avenir,sans-serif;font-size:0.86rem;line-height:1.6;color:var(--text);border:1.5px solid var(--border);border-radius:9px;padding:14px;resize:vertical;background:#fff;outline:none;}
+.msg-text:focus{border-color:var(--blue);}
+.msg-hint{margin:9px 0 0;font-size:0.78rem;color:#7B3F00;background:#FFF8EC;border:1px solid #FBD38D;border-radius:8px;padding:9px 12px;line-height:1.5;}
+.msg-hint strong{color:#5C2E00;}
+#msg-modal{z-index:260;}

@@ -166,7 +166,28 @@ sub('''<div class="grid-wrap">
   <div class="grid" id="grid"></div>''', 'tip bar')
 
 sub('<div class="toast" id="toast"></div>',
- '''<!-- MY LIST / COMPARE -->
+ '''<!-- TEXT MESSAGE PREVIEW -->
+<div class="modal-overlay" id="msg-modal" onclick="msgOverlayClick(event)">
+  <div class="modal" style="max-width:580px">
+    <div class="modal-header">
+      <div>
+        <h2>Send these camps</h2>
+        <p>Edit it however you like, then copy</p>
+      </div>
+      <button class="modal-close" onclick="closeMsg()">\u2715</button>
+    </div>
+    <div style="padding:18px 28px 4px">
+      <textarea id="msg-text" class="msg-text" spellcheck="true"></textarea>
+      <p class="msg-hint">Fill in <strong>Thinking about: ____</strong> under each camp with the weeks you have in mind, then copy and paste it into a text or email.</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeMsg()">Close</button>
+      <button class="btn-add" onclick="copyMsgText()">\U0001f4cb Copy message</button>
+    </div>
+  </div>
+</div>
+
+<!-- MY LIST / COMPARE -->
 <div class="modal-overlay" id="list-modal" onclick="listOverlayClick(event)">
   <div class="modal wide">
     <div class="modal-header">
@@ -179,7 +200,7 @@ sub('<div class="toast" id="toast"></div>',
     <div class="export-row">
       <button class="exp-btn exp-xlsx" onclick="exportXLSX()">⬇ Excel (.xlsx)</button>
       <button class="exp-btn exp-csv"  onclick="exportCSV()">⬇ CSV</button>
-      <button class="exp-btn" style="background:#0D9488" onclick="copyAsMessage()" title="Copies a ready-to-send message with the camp names, dates and a blank for the weeks you are considering">\U0001f4ac Copy as a text</button>
+      <button class="exp-btn" style="background:#0D9488" onclick="openMsg()" title="Copies a ready-to-send message with the camp names, dates and a blank for the weeks you are considering">\U0001f4ac Copy as a text</button>
       <button class="exp-btn" style="background:#7C3AED" onclick="icsForSavedList()">\u23f0 Registration reminders (.ics)</button>
       <button class="exp-btn exp-print" onclick="printList()" title="Opens your print dialog — choose Save as PDF for a landscape planner">🖨 Print / Save as PDF</button>
       <button class="exp-btn" style="background:#fff;color:var(--gray);border:1.5px solid var(--border);margin-left:auto" onclick="clearList()">Clear list</button>

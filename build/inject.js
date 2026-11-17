@@ -609,9 +609,20 @@ function listAsMessage(){
   out.push('Full JQES camp list: ' + location.host + (location.pathname === '/' ? '' : location.pathname));
   return out.join('\n');
 }
-function copyAsMessage(){
+function openMsg(){
   if (!saved.length){ showToast('Save some camps first'); return; }
-  const text = listAsMessage();
+  document.getElementById('msg-text').value = listAsMessage();
+  document.getElementById('msg-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeMsg(){
+  document.getElementById('msg-modal').classList.remove('open');
+  if (!document.getElementById('list-modal').classList.contains('open')) document.body.style.overflow = '';
+}
+function msgOverlayClick(e){ if (e.target.id === 'msg-modal') closeMsg(); }
+function copyMsgText(){
+  const text = document.getElementById('msg-text').value;
+  if (!text.trim()) return;
   const done = () => showToast('Copied — paste it into a text or email');
   if (navigator.clipboard && window.isSecureContext){
     navigator.clipboard.writeText(text).then(done).catch(() => fallbackCopy(text, done));
@@ -619,3 +630,6 @@ function copyAsMessage(){
     fallbackCopy(text, done);
   }
 }
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && document.getElementById('msg-modal').classList.contains('open')) closeMsg();
+});
