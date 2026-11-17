@@ -75,7 +75,7 @@ sub("""      <select id="week-f" onchange="filter()">""",
 
 sub('''      <button class="add-btn" onclick="openModal()">''',
     '''      <label class="conf-toggle" title="Hide programs that have not published 2027 dates">
-        <input type="checkbox" id="conf-f" checked onchange="filter()"> 2027 dates confirmed only
+        <input type="checkbox" id="conf-f" onchange="filter()"> 2027 dates confirmed only
       </label>
       <label class="fav-toggle" title="Show only camps JQES families recommend">
         <input type="checkbox" id="fav-f" onchange="filter()"> \u2605 JQES favorites

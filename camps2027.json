@@ -463,17 +463,17 @@
   "area": "Greater Boston suburbs"
  },
  {
-  "name": "MFA Summer Art Camp",
+  "name": "MFA Summer Studio Art Classes",
   "cost": "$653/week",
-  "ages": "6–11",
+  "ages": "5–11 · Classes grouped by age: 5–7, 6–8, 8–10 and 9–11",
   "ageRange": [
-   6,
+   5,
    11
   ],
-  "description": "Studio art classes for kids at the Museum of Fine Arts. Campers work in the MFA's studios and spend time in the galleries, with projects built around the collection.",
+  "description": "Full-day, in-person studio art classes at the Museum of Fine Arts, grouped by age into 5–7, 6–8, 8–10 and 9–11. Students draw, paint, sculpt, collage and print, taking inspiration from the places and cultures in the MFA's collection. Each week has its own theme — past ones include The Art of Play, Making Waves and P(art)y Animals. Worth knowing before you book: the MFA is clear that a museum setting comes with more rules and expectations than most youth programs, and that the day is classroom-based art making with no active play or outdoor time. It suits children who can stay engaged in that setting.",
   "dates": "2027 dates not yet posted",
-  "registration": "Summer 2027 goes on sale Tue, Dec 8, 2026",
-  "hours": "9:00am – 4:00pm, Mon–Fri",
+  "registration": "Summer 2027 goes on sale Tue, Dec 8, 2026 · Registration for each class closes at 12pm the Friday before it starts",
+  "hours": "Full day · 9:00am – 4:00pm, Mon–Fri",
   "extendedDay": "—",
   "categories": [
    "Arts & Creative"
@@ -483,7 +483,7 @@
   "url": "https://www.mfa.org/programs/studio-art-classes/kids",
   "isNew": true,
   "status": "tbc",
-  "note": "The MFA lists Summer 2027 as going on sale December 8, 2026 — dates should follow then.",
+  "note": "The MFA lists Summer 2027 as going on sale December 8, 2026 — week themes and dates should follow then.",
   "contact": null,
   "checked": "Nov 17, 2026",
   "id": "mfa-summer-art-camp",

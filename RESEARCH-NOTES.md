@@ -11,8 +11,8 @@ Every program checked against its own website on **November 17, 2026**.
 
 - **2026-11-23** — BMP Summer Strings (Boston Music Project)  
   Registration opens Mon, Nov 23, 2026 · Limited seats · registrar@bostonmusicproject.org
-- **2026-12-08** — MFA Summer Art Camp  
-  Summer 2027 goes on sale Tue, Dec 8, 2026
+- **2026-12-08** — MFA Summer Studio Art Classes  
+  Summer 2027 goes on sale Tue, Dec 8, 2026 · Registration for each class closes at 12pm the Friday before it starts
 - **2026-12-09** — Summer at BB&N (Buckingham Browne & Nichols)  
   Opens Wed, Dec 9, 2026 at noon
 - **2027-01-19** — Hill House Day Camp  
@@ -188,7 +188,7 @@ Every program checked against its own website on **November 17, 2026**.
 | LINX Summer Camps (Wellesley) | Site says registration is open for 2027, but session dates are not listed yet. | https://linxcamps.com/ |
 | Little Panda Mandarin Immersion Camp | No 2027 dates posted. | https://www.littlepandachildcare.com/ |
 | Mass Audubon Chickadees Nature Camp (Milton) | Blue Hills camp page has moved; 2027 sessions not yet listed. | https://www.massaudubon.org/programs/blue-hills |
-| MFA Summer Art Camp | The MFA lists Summer 2027 as going on sale December 8, 2026 — dates should follow then. | https://www.mfa.org/programs/studio-art-classes/kids |
+| MFA Summer Studio Art Classes | The MFA lists Summer 2027 as going on sale December 8, 2026 — week themes and dates should follow then. | https://www.mfa.org/programs/studio-art-classes/kids |
 | Minni × Urbanity Dance – South End | Minni's Beacon Hill site has posted 2027 dates; the South End sessions have not. | https://minni.space/2026-summer-program-urbanity |
 | MIT All Sports Summer Day Camp | 2026 sessions still listed. | https://www.mitrecsports.com/mit-day-camp22/ |
 | New England Base Camp – Cub Scout Day Camp (JQES Pack 617 Bus) | No 2027 dates posted yet. | https://www.scoutspirit.org/ |

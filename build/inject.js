@@ -498,7 +498,7 @@ function activeFilters(){
   if (sel('reg-f')) f.push({label:sel('reg-f'),  clear:()=>document.getElementById('reg-f').value=''});
   if (sel('week-f'))f.push({label:sel('week-f'), clear:()=>document.getElementById('week-f').value=''});
   if (ck('fav-f'))  f.push({label:'JQES favorites only', clear:()=>document.getElementById('fav-f').checked=false});
-  if (ck('conf-f')) f.push({label:'2027 dates confirmed only', isDefault:true,
+  if (ck('conf-f')) f.push({label:'2027 dates confirmed only',
     clear:()=>document.getElementById('conf-f').checked=false});
   if (typeof activeCat !== 'undefined' && activeCat !== 'all')
     f.push({label:'Category: ' + activeCat, clear:()=>{
