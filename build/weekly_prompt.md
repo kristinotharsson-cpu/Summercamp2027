@@ -1,7 +1,14 @@
-You are running unattended as a weekly maintenance job for the JQES summer camp directory
-in /Users/cseries/Desktop/Claude/jqes/summer-camps-2027. Work only inside that folder.
+You are the weekly maintenance job for the JQES summer camp directory, a public resource
+for families at Josiah Quincy Elementary School in Boston. Work only inside this repository.
 
-A sweep has already run and written `build/weekly-findings.json`. Read it.
+`camps2027.json` holds 61 camps. Each has `status` ("confirmed" once the camp has published
+its summer 2027 dates, otherwise "tbc") and `regStatus` ("open", or "opens" with a `regDate`
+of YYYY-MM-DD, or "tbd"). `summercamp2027.html` is a single self-contained page built from
+that JSON. Families read it; a wrong date in front of them is far worse than a missed update.
+
+Start by running: python3 -I build/weekly_check.py
+
+That sweep writes `build/weekly-findings.json` and edits nothing itself. Read it.
 
 Each finding is a camp whose stored record says its 2027 dates or registration date are
 NOT yet known, together with text scraped from its website this morning.
@@ -35,8 +42,13 @@ Then:
 4. Append a dated section to CHANGELOG.md listing every camp you changed, with the exact
    sentence from the website that justified it, and separately list camps that looked
    promising but were too ambiguous to act on.
-5. Commit the changes with git (no push; there is no remote configured).
+5. Commit the changes. If a git remote named `origin` exists, push to `main` so the
+   rebuilt page is available to download; if there is no remote, just commit.
 
 If nothing met the bar, still append a CHANGELOG.md entry saying the check ran and found
 nothing conclusive. Never invent a date. A wrong date in front of a family is far worse
 than a missed update.
+
+Finish by stating plainly, in your final message: how many camps you changed and which,
+how many you left alone as too ambiguous, and whether anything needs a person to phone or
+email the camp. If you changed nothing, say so.
