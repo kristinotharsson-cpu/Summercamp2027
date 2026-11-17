@@ -181,7 +181,7 @@ sub('<div class="toast" id="toast"></div>',
       <button class="exp-btn exp-csv"  onclick="exportCSV()">⬇ CSV</button>
       <button class="exp-btn exp-gs"   onclick="copyForSheets()">📋 Copy for Google Sheets</button>
       <button class="exp-btn" style="background:#7C3AED" onclick="icsForSavedList()">\u23f0 Registration reminders (.ics)</button>
-      <button class="exp-btn exp-print" onclick="printList()">🖨 Print</button>
+      <button class="exp-btn exp-print" onclick="printList()" title="Opens your print dialog — choose Save as PDF for a landscape planner">🖨 Print / Save as PDF</button>
       <button class="exp-btn" style="background:#fff;color:var(--gray);border:1.5px solid var(--border);margin-left:auto" onclick="clearList()">Clear list</button>
     </div>
     <div id="cmp-body"></div>

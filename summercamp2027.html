@@ -275,6 +275,37 @@ table.cmp .rm:hover{color:var(--red);}
 .more-btn .n{background:var(--orange);color:#fff;border-radius:99px;padding:0 7px;font-size:0.7rem;font-weight:800;}
 .more-row{display:none;gap:10px;flex-wrap:wrap;align-items:center;padding:12px 0 2px;margin-top:10px;border-top:1px dashed var(--border);}
 .more-row.open{display:flex;}
+
+/* ── printable planner: US Letter landscape (11 x 8.5) ── */
+#print-sheet{display:none;}
+@media print{
+  @page{size:letter landscape;margin:0.45in;}
+  html,body{background:#fff!important;}
+  body>*:not(#print-sheet){display:none!important;}
+  #print-sheet{display:block!important;font-family:'Nunito Sans',Avenir,sans-serif;color:#1C1C1C;}
+  .ps-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;border-bottom:3px solid #B80620;padding-bottom:7px;margin-bottom:10px;}
+  .ps-head h1{font-family:'Calistoga',serif;font-size:17pt;line-height:1.1;color:#B80620;margin:0;}
+  .ps-head p{font-size:8pt;color:#555;margin:3px 0 0;}
+  .ps-key{display:flex;gap:12px;font-size:7.5pt;color:#444;white-space:nowrap;}
+  .ps-key i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:4px;vertical-align:middle;}
+  .ps-key i.ok{background:#BBF7D0;border:1px solid #16A34A;}
+  .ps-key i.tbc{background:#FDE68A;border:1px solid #D97706;}
+  table.ps-table{width:100%;border-collapse:collapse;font-size:8pt;table-layout:fixed;}
+  table.ps-table thead{display:table-header-group;}
+  table.ps-table th{background:#B80620;color:#fff;font-size:7.5pt;font-weight:700;text-transform:uppercase;letter-spacing:0.03em;padding:5px 5px;text-align:left;border:0.5pt solid #B80620;}
+  table.ps-table td{border:0.5pt solid #C9C9C9;padding:5px;vertical-align:top;line-height:1.3;}
+  table.ps-table tr{page-break-inside:avoid;break-inside:avoid;}
+  table.ps-table tr.ok  td:first-child+td{border-left:3pt solid #16A34A;}
+  table.ps-table tr.tbc td:first-child+td{border-left:3pt solid #D97706;}
+  table.ps-table tr:nth-child(even) td{background:#FAFAFA;}
+  td.tick,th.tick{width:4%;text-align:center;}
+  td.tick::before{content:'';display:inline-block;width:11px;height:11px;border:1pt solid #777;border-radius:2px;margin-top:1px;}
+  .ps-table .camp{font-weight:700;font-size:8.5pt;}
+  .ps-table .camp .url{font-weight:400;font-size:6.5pt;color:#777;margin-top:2px;word-break:break-all;}
+  col.c-camp{width:17%} col.c-area{width:10%} col.c-dates{width:21%} col.c-reg{width:11%}
+  col.c-ages{width:9%} col.c-cost{width:13%} col.c-notes{width:15%}
+  .ps-foot{margin-top:9px;font-size:7pt;color:#666;border-top:1px solid #DDD;padding-top:5px;}
+}
 </style>
 </head>
 <body>
@@ -534,7 +565,7 @@ table.cmp .rm:hover{color:var(--red);}
       <button class="exp-btn exp-csv"  onclick="exportCSV()">⬇ CSV</button>
       <button class="exp-btn exp-gs"   onclick="copyForSheets()">📋 Copy for Google Sheets</button>
       <button class="exp-btn" style="background:#7C3AED" onclick="icsForSavedList()">⏰ Registration reminders (.ics)</button>
-      <button class="exp-btn exp-print" onclick="printList()">🖨 Print</button>
+      <button class="exp-btn exp-print" onclick="printList()" title="Opens your print dialog — choose Save as PDF for a landscape planner">🖨 Print / Save as PDF</button>
       <button class="exp-btn" style="background:#fff;color:var(--gray);border:1.5px solid var(--border);margin-left:auto" onclick="clearList()">Clear list</button>
     </div>
     <div id="cmp-body"></div>
@@ -1027,16 +1058,19 @@ function renderCompare(){
 }
 
 /* ── export ── */
-const EXP_HEAD = ['Camp','2027 dates','2027 dates published?','Registration opens','Registration detail','Ages','Cost','Hours','Extended day','Categories','Neighborhood','Location','Getting there','JQES favorite','Notes','Website','Last checked'];
+const PLAN_HEAD = ['Pick','Status','Rating','For which child','Family notes'];
+const EXP_HEAD = PLAN_HEAD.concat(['Camp','Neighborhood','2027 dates published?','2027 dates','Registration opens','Registration detail','Ages','Cost','Hours','Extended day','Getting there','JQES favorite','Categories','Location','Notes','Website','Last checked']);
 function exportRows(){
   return [EXP_HEAD].concat(savedCamps().map(c => [
-    c.name, c.dates,
+    '', '', '', '', '',                       // the family fills these in
+    c.name, c.area || '',
     c.status === 'confirmed' ? 'Yes' : 'Not yet',
+    c.dates,
     c.regStatus === 'open' ? 'Open now' : (c.regStatus === 'opens' && c.regDate ? fmtReg(c.regDate) : 'Not announced'),
     c.registration,
     c.ages, c.cost, c.hours, c.extendedDay,
-    (c.categories || []).join(', '), c.area || '', c.location || '',
-    c.transport || '', c.favorite ? 'Yes' : '',
+    c.transport || '', c.favorite ? '★' : '',
+    (c.categories || []).join(', '), c.location || '',
     c.note || (c.ref2026 ? '2026 for reference: ' + c.ref2026 : ''),
     c.url || '', c.checked || ''
   ].map(v => String(v == null ? '' : v).replace(/\s*\n\s*/g, ' '))));
@@ -1053,29 +1087,155 @@ function exportCSV(){
   download(new Blob(['﻿' + csv], {type:'text/csv;charset=utf-8;'}), 'JQES-summer-camps-2027.csv');
   showToast('CSV downloaded');
 }
-function loadXLSX(){
+const XLSX_CDN = 'https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.4.0/exceljs.min.js';
+function loadExcelJS(){
   return new Promise((res, rej) => {
-    if (window.XLSX) return res(window.XLSX);
+    if (window.ExcelJS) return res(window.ExcelJS);
     const s = document.createElement('script');
-    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';
-    s.onload = () => window.XLSX ? res(window.XLSX) : rej();
+    s.src = XLSX_CDN;
+    s.onload = () => window.ExcelJS ? res(window.ExcelJS) : rej();
     s.onerror = rej;
     document.head.appendChild(s);
   });
 }
+
+const RED   = 'FFB80620', RED_LT = 'FFFDECEF', CREAM = 'FFFFF8F0';
+const GREEN = 'FFD1FAE5', GREEN_T = 'FF065F46';
+const AMBER = 'FFFEF3C7', AMBER_T = 'FF92400E';
+const BLUE  = 'FFDBEAFE', BLUE_T  = 'FF1E40AF';
+const GRAY  = 'FFF1F1F1', GRAY_T  = 'FF6B6B6B';
+const GOLD  = 'FFFCD34D';
+const fill = c => ({type:'pattern', pattern:'solid', fgColor:{argb:c}});
+const thin = {style:'thin', color:{argb:'FFD9D9D9'}};
+const box  = {top:thin, left:thin, bottom:thin, right:thin};
+
+function buildPlannerWorkbook(){
+  return loadExcelJS().then(ExcelJS => {
+    const rows = exportRows(), head = rows[0], body = rows.slice(1);
+    const nCols = head.length, firstDataRow = 5, lastRow = firstDataRow + body.length - 1;
+
+    const wb = new ExcelJS.Workbook();
+    wb.creator = 'JQES School Community Council';
+    const ws = wb.addWorksheet('Summer 2027 Planner', {
+      views: [{state:'frozen', xSplit:5, ySplit:4}],
+      pageSetup: {orientation:'landscape', fitToPage:true, fitToWidth:1, fitToHeight:0,
+                  paperSize:1, margins:{left:0.3,right:0.3,top:0.4,bottom:0.4,header:0.2,footer:0.2}}
+    });
+
+    const WIDTHS = [7,15,9,18,30, 34,24,14,46,18,42,22,34,32,13,46,13,26,28,40,42,13];
+    ws.columns = head.map((h,i) => ({header:h, width: WIDTHS[i] || 18}));
+
+    // ── title band ──
+    ws.mergeCells(1,1,1,nCols);
+    const t = ws.getCell(1,1);
+    t.value = 'JQES Summer Camp Planner · Summer 2027';
+    t.fill = fill(RED); t.font = {bold:true, size:16, color:{argb:'FFFFFFFF'}};
+    t.alignment = {vertical:'middle', horizontal:'left', indent:1};
+    ws.getRow(1).height = 32;
+
+    ws.mergeCells(2,1,2,nCols);
+    const s2 = ws.getCell(2,1);
+    s2.value = body.length + ' saved camp' + (body.length===1?'':'s') + ' · exported '
+             + new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})
+             + '  —  tick Pick, set Status and Rating as you work through them. '
+             + 'Green means the camp has published its 2027 dates.';
+    s2.fill = fill(CREAM); s2.font = {italic:true, size:10, color:{argb:'FF7B3F00'}};
+    s2.alignment = {vertical:'middle', horizontal:'left', indent:1, wrapText:false};
+    ws.getRow(2).height = 20;
+    ws.getRow(3).height = 6;
+
+    // ── header row ──
+    const hr = ws.getRow(4);
+    head.forEach((h,i) => {
+      const c = hr.getCell(i+1);
+      c.value = h;
+      c.fill = fill(i < 5 ? 'FF7B3F00' : RED);
+      c.font = {bold:true, size:10, color:{argb:'FFFFFFFF'}};
+      c.alignment = {vertical:'middle', horizontal:'center', wrapText:true};
+      c.border = box;
+    });
+    hr.height = 30;
+
+    // ── data ──
+    body.forEach((r, ri) => {
+      const row = ws.getRow(firstDataRow + ri);
+      r.forEach((v, ci) => {
+        const c = row.getCell(ci+1);
+        c.value = v;
+        c.border = box;
+        c.alignment = {vertical:'top', wrapText: ci >= 5, horizontal: ci < 3 ? 'center' : 'left'};
+        c.font = {size:10};
+      });
+      row.height = 42;
+      const camp = row.getCell(6);
+      camp.font = {size:11, bold:true};
+      if (r[16] === '★') { camp.fill = fill(GOLD); camp.font = {size:11, bold:true, color:{argb:'FF5C2E00'}}; }
+      else if (ri % 2) { for (let i=6;i<=nCols;i++) if (!row.getCell(i).fill) row.getCell(i).fill = fill('FFFAFAFA'); }
+
+      const pub = row.getCell(8);
+      if (r[7] === 'Yes') { pub.fill = fill(GREEN); pub.font = {size:10, bold:true, color:{argb:GREEN_T}}; }
+      else { pub.fill = fill(AMBER); pub.font = {size:10, bold:true, color:{argb:AMBER_T}}; }
+      pub.alignment = {vertical:'top', horizontal:'center', wrapText:true};
+
+      const opens = row.getCell(10);
+      if (r[9] === 'Open now')        { opens.fill = fill(GREEN); opens.font = {size:10, bold:true, color:{argb:GREEN_T}}; }
+      else if (r[9] === 'Not announced'){ opens.fill = fill(GRAY);  opens.font = {size:10, color:{argb:GRAY_T}}; }
+      else                             { opens.fill = fill(BLUE);  opens.font = {size:10, bold:true, color:{argb:BLUE_T}}; }
+      opens.alignment = {vertical:'top', horizontal:'center', wrapText:true};
+
+      const site = row.getCell(21);
+      if (r[20]) { site.value = {text:r[20], hyperlink:r[20]}; site.font = {size:9, color:{argb:'FF118CCD'}, underline:true}; }
+
+      // the family's own columns: roomy, cream, clearly theirs to fill
+      for (let i=1;i<=5;i++){ const c=row.getCell(i); c.fill = fill(CREAM); c.border = box; }
+    });
+
+    // ── dropdowns so nobody has to remember the words ──
+    for (let r = firstDataRow; r <= lastRow; r++){
+      ws.getCell(r,1).dataValidation = {type:'list', allowBlank:true, formulae:['"☐,☑"']};
+      ws.getCell(r,2).dataValidation = {type:'list', allowBlank:true,
+        formulae:['"Not yet,Interested,Applied,Registered,Waitlisted,Passed"']};
+      ws.getCell(r,3).dataValidation = {type:'list', allowBlank:true, formulae:['"1,2,3,4,5"']};
+    }
+
+    // ── color follows what they type ──
+    const rng = `B${firstDataRow}:B${lastRow}`;
+    ws.addConditionalFormatting({ref: rng, rules: [
+      {type:'containsText', operator:'containsText', text:'Registered', priority:1,
+       style:{fill:fill(GREEN), font:{bold:true, color:{argb:GREEN_T}}}},
+      {type:'containsText', operator:'containsText', text:'Applied', priority:2,
+       style:{fill:fill(BLUE), font:{bold:true, color:{argb:BLUE_T}}}},
+      {type:'containsText', operator:'containsText', text:'Waitlisted', priority:3,
+       style:{fill:fill(AMBER), font:{bold:true, color:{argb:AMBER_T}}}},
+      {type:'containsText', operator:'containsText', text:'Passed', priority:4,
+       style:{fill:fill(GRAY), font:{color:{argb:GRAY_T}}}}
+    ]});
+    ws.addConditionalFormatting({ref:`A${firstDataRow}:A${lastRow}`, rules:[
+      {type:'containsText', operator:'containsText', text:'☑', priority:1,
+       style:{fill:fill(GREEN), font:{bold:true, color:{argb:GREEN_T}}}}
+    ]});
+    ws.addConditionalFormatting({ref:`C${firstDataRow}:C${lastRow}`, rules:[
+      {type:'colorScale', priority:1, cfvo:[{type:'num',value:1},{type:'num',value:5}],
+       color:[{argb:'FFFFE3E3'},{argb:'FF9BE8B4'}]}
+    ]});
+
+    ws.autoFilter = {from:{row:4,column:1}, to:{row:lastRow, column:nCols}};
+
+    return wb;
+  });
+}
+
 function exportXLSX(){
   if (!saved.length) return;
-  showToast('Building Excel file…');
-  loadXLSX().then(XLSX => {
-    const rows = exportRows();
-    const ws = XLSX.utils.aoa_to_sheet(rows);
-    ws['!cols'] = [{wch:34},{wch:46},{wch:20},{wch:20},{wch:44},{wch:22},{wch:34},{wch:32},{wch:13},{wch:24},{wch:28},{wch:26},{wch:50},{wch:14},{wch:46},{wch:42},{wch:14}];
-    ws['!autofilter'] = {ref: XLSX.utils.encode_range({s:{r:0,c:0}, e:{r:rows.length-1, c:EXP_HEAD.length-1}})};
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Summer 2027');
-    XLSX.writeFile(wb, 'JQES-summer-camps-2027.xlsx');
-    showToast('Excel file downloaded');
-  }).catch(() => showToast('Could not load the Excel library — try CSV instead'));
+  showToast('Building your planner…');
+  buildPlannerWorkbook()
+    .then(wb => wb.xlsx.writeBuffer())
+    .then(buf => {
+      download(new Blob([buf], {type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}),
+               'JQES-summer-camp-planner-2027.xlsx');
+      showToast('Planner downloaded');
+    })
+    .catch(() => showToast('Could not build the Excel file — try CSV instead'));
 }
 function copyForSheets(){
   if (!saved.length) return;
@@ -1084,7 +1244,52 @@ function copyForSheets(){
     .then(() => showToast('Copied — paste straight into Google Sheets or Excel'))
     .catch(() => showToast('Copy failed — use the CSV download instead'));
 }
-function printList(){ if (saved.length) window.print(); }
+function clipFor(s, n){
+  s = String(s == null ? '' : s).replace(/\s+/g, ' ').trim();
+  if (s.length <= n) return s;
+  const cut = s.slice(0, n);
+  const stop = Math.max(cut.lastIndexOf(' · '), cut.lastIndexOf(', '), cut.lastIndexOf(' '));
+  return (stop > n * 0.5 ? cut.slice(0, stop) : cut).replace(/[\s·,]+$/, '') + '…';
+}
+function buildPrintSheet(){
+  const list = savedCamps();
+  let el = document.getElementById('print-sheet');
+  if (!el){ el = document.createElement('div'); el.id = 'print-sheet'; document.body.appendChild(el); }
+  const when = new Date().toLocaleDateString('en-US', {month:'long', day:'numeric', year:'numeric'});
+  const opens = c => c.regStatus === 'open' ? 'Open now'
+                : (c.regStatus === 'opens' && c.regDate ? fmtReg(c.regDate) : 'Not announced');
+  el.innerHTML =
+    '<div class="ps-head">'
+    + '<div><h1>JQES Summer Camp Planner</h1>'
+    + '<p>Summer 2027 &middot; ' + list.length + ' camp' + (list.length===1?'':'s')
+    + ' &middot; printed ' + when + '</p></div>'
+    + '<div class="ps-key"><span><i class="ok"></i>2027 dates published</span>'
+    + '<span><i class="tbc"></i>dates not yet posted</span></div></div>'
+    + '<table class="ps-table"><colgroup><col class="c-tick"><col class="c-camp"><col class="c-area">'
+    + '<col class="c-dates"><col class="c-reg"><col class="c-ages"><col class="c-cost"><col class="c-notes"></colgroup>'
+    + '<thead><tr><th class="tick"></th><th>Camp</th><th>Neighborhood</th><th>2027 dates</th>'
+    + '<th>Registration</th><th>Ages</th><th>Cost</th><th>Notes</th></tr></thead><tbody>'
+    + list.map(c =>
+        '<tr class="' + (c.status === 'confirmed' ? 'ok' : 'tbc') + '">'
+        + '<td class="tick"></td>'
+        + '<td class="camp">' + esc(c.name) + (c.favorite ? ' &#9733;' : '')
+        + '<div class="url">' + esc((c.url || '').replace(/^https?:\/\//, '')) + '</div></td>'
+        + '<td>' + esc(clipFor(c.area || '—', 30)) + '</td>'
+        + '<td>' + esc(clipFor(c.dates, 130)) + '</td>'
+        + '<td>' + esc(opens(c)) + '</td>'
+        + '<td>' + esc(clipFor(c.ages, 55)) + '</td>'
+        + '<td>' + esc(clipFor(c.cost, 80)) + '</td>'
+        + '<td></td></tr>').join('')
+    + '</tbody></table>'
+    + '<p class="ps-foot">Every camp checked against its own website on ' + esc(list[0] ? list[0].checked : '')
+    + '. Confirm dates with the camp before relying on them. '
+    + 'Questions or a camp to add: josiahquincyparentcouncil@gmail.com</p>';
+}
+function printList(){
+  if (!saved.length){ showToast('Save some camps first'); return; }
+  buildPrintSheet();
+  setTimeout(() => window.print(), 60);
+}
 
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && document.getElementById('list-modal').classList.contains('open')) closeList();
