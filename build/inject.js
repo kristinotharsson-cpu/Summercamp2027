@@ -273,13 +273,6 @@ function exportXLSX(){
     })
     .catch(() => showToast('Could not build the Excel file — try CSV instead'));
 }
-function copyForSheets(){
-  if (!saved.length) return;
-  const tsv = exportRows().map(r => r.map(v => String(v).replace(/\t/g,' ')).join('\t')).join('\n');
-  navigator.clipboard.writeText(tsv)
-    .then(() => showToast('Copied — paste straight into Google Sheets or Excel'))
-    .catch(() => showToast('Copy failed — use the CSV download instead'));
-}
 function clipFor(s, n){
   s = String(s == null ? '' : s).replace(/\s+/g, ' ').trim();
   if (s.length <= n) return s;
