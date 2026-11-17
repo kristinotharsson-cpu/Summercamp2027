@@ -596,13 +596,45 @@ function shortReg(c){
       .toLocaleDateString('en-US', {month:'short', day:'numeric'});
   return 'registration date not announced';
 }
+function weekOptions(c){
+  if (c.status !== 'confirmed') return null;
+  const r = parseCampDateRanges(c.dates);
+  if (!r.length) return null;
+  const f = d => d.toLocaleDateString('en-US', {month:'short', day:'numeric'});
+  const days = x => (x.end - x.start) / 86400000;
+  const longest = r.reduce((a, b) => days(b) > days(a) ? b : a);
+  // A long continuous season gets broken into weeks. Discrete sessions — including
+  // two-week ones — are listed exactly as the camp publishes them.
+  if (days(longest) > 20){
+    const out = []; const cur = new Date(longest.start);
+    while (cur <= longest.end && out.length < 12){
+      out.push('week of ' + f(cur));
+      cur.setDate(cur.getDate() + 7);
+    }
+    return out;
+  }
+  const seen = new Set(), out = [];
+  r.forEach(x => {
+    if (days(x) < 1) return;
+    const label = f(x.start) + '–' + f(x.end);
+    if (!seen.has(label)){ seen.add(label); out.push(label); }
+  });
+  return out.slice(0, 12);
+}
+
 function listAsMessage(){
   const list = savedCamps();
   const out = ["Hey — here are the camps I'm looking at for summer 2027:", ''];
   list.forEach(c => {
     out.push(c.name);
     out.push('  ' + shortSpan(c) + ' · ' + shortReg(c));
-    out.push("  Thinking about: ____");
+    const wks = weekOptions(c);
+    if (wks && wks.length){
+      out.push('  Thinking about these weeks (delete the ones you do not want):');
+      wks.forEach(w => out.push('    ' + w));
+    } else {
+      out.push('  Thinking about these weeks: ____');
+    }
     if (c.url) out.push('  ' + c.url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, ''));
     out.push('');
   });

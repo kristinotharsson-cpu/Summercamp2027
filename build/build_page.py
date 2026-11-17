@@ -178,7 +178,7 @@ sub('<div class="toast" id="toast"></div>',
     </div>
     <div style="padding:18px 28px 4px">
       <textarea id="msg-text" class="msg-text" spellcheck="true"></textarea>
-      <p class="msg-hint">Fill in <strong>Thinking about: ____</strong> under each camp with the weeks you have in mind, then copy and paste it into a text or email.</p>
+      <p class="msg-hint">Each camp lists the weeks it runs. <strong>Delete the ones you are not interested in</strong>, then copy and paste it into a text or email.</p>
     </div>
     <div class="modal-footer">
       <button class="btn-cancel" onclick="closeMsg()">Close</button>
