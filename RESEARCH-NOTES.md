@@ -4,7 +4,7 @@ Every program checked against its own website on **November 17, 2026**.
 
 - **61 programs** total — 11 have published 2027 dates, 50 have not yet
 - **7 open for registration now**, 5 with a dated opening
-- **7 marked as JQES fan favorites**
+- **7 marked as JQES Family Favorites**
 
 
 ## Registration diary
@@ -23,7 +23,7 @@ Every program checked against its own website on **November 17, 2026**.
 **Open right now:** Hale Day Camp (Westwood), Minni Summer Program – Beacon Hill, Nike Tennis Camp at MIT, Everwood Day Camp, Red Sox Summer Camp, Warrior Ice Arena (Boston Bruins Practice Facility), LINX Summer Camps (Wellesley)
 
 
-## JQES fan favorites
+## JQES Family Favorites
 
 - **Hale Day Camp (Westwood)** — 2027 dates published
   - Hale's free buses don't stop in Chinatown or downtown. The closest stops are Dorchester, Roslindale, West Roxbury and Jamaica Plain. We need at least 10 JQES kids to get a bus to pick up at school — email josiahquincyparentcouncil@gmail.com to let us know you're interested.

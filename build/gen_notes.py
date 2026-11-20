@@ -11,14 +11,14 @@ L = ["# Summer 2027 camp research — JQES SCC\n",
      "Every program checked against its own website on **November 17, 2026**.\n",
      f"- **{len(d)} programs** total — {len(conf)} have published 2027 dates, {len(tbc)} have not yet",
      f"- **{len(op)} open for registration now**, {len(dated)} with a dated opening",
-     f"- **{len(favs)} marked as JQES fan favorites**\n"]
+     f"- **{len(favs)} marked as JQES Family Favorites**\n"]
 
 L.append("\n## Registration diary\n")
 for c in dated:
     L.append(f"- **{c['regDate']}** — {c['name']}  \n  {c['registration']}")
 L.append("\n**Open right now:** " + ", ".join(c['name'] for c in op) + "\n")
 
-L.append("\n## JQES fan favorites\n")
+L.append("\n## JQES Family Favorites\n")
 for c in favs:
     L.append(f"- **{c['name']}** — {'2027 dates published' if c['status']=='confirmed' else 'dates not yet posted'}")
     if c.get('favoriteNote'): L.append(f"  - {c['favoriteNote']}")

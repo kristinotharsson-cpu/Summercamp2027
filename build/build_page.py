@@ -77,8 +77,8 @@ sub('''      <button class="add-btn" onclick="openModal()">''',
     '''      <label class="conf-toggle" title="Hide programs that have not published 2027 dates">
         <input type="checkbox" id="conf-f" onchange="filter()"> 2027 dates confirmed only
       </label>
-      <label class="fav-toggle" title="Show only camps JQES families recommend">
-        <input type="checkbox" id="fav-f" onchange="filter()"> \u2605 JQES favorites
+      <label class="fav-toggle" title="Show only the camps JQES families recommend">
+        <input type="checkbox" id="fav-f" onchange="filter()"> \u2605 JQES Family Favorites
       </label>
       <button class="list-btn" id="list-btn" onclick="openList()" title="Save camps to a shortlist and compare them side by side">☆ Save &amp; Compare</button>
       <button class="add-btn" onclick="openModal()">''', 'controls')
@@ -120,7 +120,7 @@ sub('''  const wf=document.getElementById('week-f').value;
 
 # ── 9. card template ──────────────────────────────────────────────
 sub("    const tagRow=[freeBadge,extBadge,newBadge].filter(Boolean).join('');",
-    "    const favBadge=c.favorite?`<span class=\"fav-tag\">\u2605 JQES FAN FAVORITE</span>`:'';\n"
+    "    const favBadge=c.favorite?`<span class=\"fav-tag\">\u2605 JQES FAMILY FAVORITE</span>`:'';\n"
     "    const statusBadge=c.status==='confirmed'?`<span class=\"ok-tag\">2027 DATES SET</span>`:`<span class=\"tbc-tag\">2027 TBC</span>`;\n"
     "    const tagRow=[favBadge,statusBadge,freeBadge,extBadge,newBadge].filter(Boolean).join('');\n"
     "    const saveBtn=`<button class=\"save-btn${isSaved(c.id)?' on':''}\" title=\"Save to my list\" aria-label=\"Save ${c.name} to my list\" onclick=\"return toggleSave(event,'${c.id}')\">${isSaved(c.id)?'★ Saved':'☆ Save'}</button>`;\n"

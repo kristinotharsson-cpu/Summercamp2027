@@ -41,7 +41,7 @@ table.cmp .rm:hover{color:var(--red);}
 .reg-soon{background:#FFF1E7;border:1px solid #FDBA8C;color:#9A3412;} .reg-soon .dot{background:#F97316;}
 .reg-dated{background:#EFF6FF;border:1px solid #BFDBFE;color:#1E40AF;} .reg-dated .dot{background:#3B82F6;}
 .reg-tbd{background:#F8F8F8;border:1px solid #E8E8E8;color:#6B6B6B;} .reg-tbd .dot{background:#BBB;}
-/* ── JQES fan favorite + transportation ── */
+/* ── JQES Family Favorite + transportation ── */
 .fav-tag{background:linear-gradient(135deg,#FCD34D,#F59E0B);color:#6B3A00;font-size:0.67rem;font-weight:800;padding:2px 9px;border-radius:5px;flex-shrink:0;white-space:nowrap;letter-spacing:0.02em;box-shadow:0 1px 3px rgba(180,120,0,0.3);}
 .card.is-fav{border-color:#F3C44B;box-shadow:0 0 0 1px #F7D06A inset;}
 .fav-note{background:#FFFBEB;border:1px solid #FCD34D;border-left:4px solid #F59E0B;border-radius:7px;padding:9px 11px;margin-bottom:10px;font-size:0.75rem;line-height:1.5;color:#78350F;}

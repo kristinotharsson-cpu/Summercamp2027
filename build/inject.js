@@ -60,7 +60,7 @@ const CMP_ROWS = [
   ['Neighborhood',  c => c.area || '—'],
   ['Location',      c => c.location || '—'],
   ['Getting there', c => c.transport || '—'],
-  ['JQES favorite', c => c.favorite ? '★ Yes' : '—'],
+  ['JQES Family Favorite', c => c.favorite ? '★ Yes' : '—'],
   ['Notes',         c => c.note || (c.ref2026 ? '2026 for reference: ' + c.ref2026 : '—')],
   ['Website',       c => c.url || '—'],
   ['Last checked',  c => c.checked || '—']
@@ -92,7 +92,7 @@ function renderCompare(){
 
 /* ── export ── */
 const PLAN_HEAD = ['Pick','Status','Rating','For which child','Friends going','Family notes'];
-const EXP_HEAD = PLAN_HEAD.concat(['Camp','Neighborhood','2027 dates published?','2027 dates','Registration opens','Registration detail','Ages','Cost','Hours','Extended day','Getting there','JQES favorite','Categories','Location','Notes','Website','Last checked']);
+const EXP_HEAD = PLAN_HEAD.concat(['Camp','Neighborhood','2027 dates published?','2027 dates','Registration opens','Registration detail','Ages','Cost','Hours','Extended day','Getting there','JQES Family Favorite','Categories','Location','Notes','Website','Last checked']);
 function exportRows(){
   return [EXP_HEAD].concat(savedCamps().map(c => [
     '', '', '', '', '', '',                   // the family fills these in
@@ -205,7 +205,7 @@ function buildPlannerWorkbook(){
       row.height = 42;
       const camp = row.getCell(col('Camp'));
       camp.font = {size:11, bold:true};
-      if (r[idx('JQES favorite')] === '★') { camp.fill = fill(GOLD); camp.font = {size:11, bold:true, color:{argb:'FF5C2E00'}}; }
+      if (r[idx('JQES Family Favorite')] === '★') { camp.fill = fill(GOLD); camp.font = {size:11, bold:true, color:{argb:'FF5C2E00'}}; }
       else if (ri % 2) { for (let i=nPlan+1;i<=nCols;i++) if (!row.getCell(i).fill) row.getCell(i).fill = fill('FFFAFAFA'); }
 
       const pub = row.getCell(col('2027 dates published?'));
@@ -490,7 +490,7 @@ function activeFilters(){
   if (sel('area-f'))f.push({label:sel('area-f'), clear:()=>document.getElementById('area-f').value=''});
   if (sel('reg-f')) f.push({label:sel('reg-f'),  clear:()=>document.getElementById('reg-f').value=''});
   if (sel('week-f'))f.push({label:sel('week-f'), clear:()=>document.getElementById('week-f').value=''});
-  if (ck('fav-f'))  f.push({label:'JQES favorites only', clear:()=>document.getElementById('fav-f').checked=false});
+  if (ck('fav-f'))  f.push({label:'JQES Family Favorites only', clear:()=>document.getElementById('fav-f').checked=false});
   if (ck('conf-f')) f.push({label:'2027 dates confirmed only',
     clear:()=>document.getElementById('conf-f').checked=false});
   if (typeof activeCat !== 'undefined' && activeCat !== 'all')

@@ -244,7 +244,7 @@ table.cmp .rm:hover{color:var(--red);}
 .reg-soon{background:#FFF1E7;border:1px solid #FDBA8C;color:#9A3412;} .reg-soon .dot{background:#F97316;}
 .reg-dated{background:#EFF6FF;border:1px solid #BFDBFE;color:#1E40AF;} .reg-dated .dot{background:#3B82F6;}
 .reg-tbd{background:#F8F8F8;border:1px solid #E8E8E8;color:#6B6B6B;} .reg-tbd .dot{background:#BBB;}
-/* ── JQES fan favorite + transportation ── */
+/* ── JQES Family Favorite + transportation ── */
 .fav-tag{background:linear-gradient(135deg,#FCD34D,#F59E0B);color:#6B3A00;font-size:0.67rem;font-weight:800;padding:2px 9px;border-radius:5px;flex-shrink:0;white-space:nowrap;letter-spacing:0.02em;box-shadow:0 1px 3px rgba(180,120,0,0.3);}
 .card.is-fav{border-color:#F3C44B;box-shadow:0 0 0 1px #F7D06A inset;}
 .fav-note{background:#FFFBEB;border:1px solid #FCD34D;border-left:4px solid #F59E0B;border-radius:7px;padding:9px 11px;margin-bottom:10px;font-size:0.75rem;line-height:1.5;color:#78350F;}
@@ -440,8 +440,8 @@ table.cmp .rm:hover{color:var(--red);}
       <label class="conf-toggle" title="Hide programs that have not published 2027 dates">
         <input type="checkbox" id="conf-f" onchange="filter()"> 2027 dates confirmed only
       </label>
-      <label class="fav-toggle" title="Show only camps JQES families recommend">
-        <input type="checkbox" id="fav-f" onchange="filter()"> ★ JQES favorites
+      <label class="fav-toggle" title="Show only the camps JQES families recommend">
+        <input type="checkbox" id="fav-f" onchange="filter()"> ★ JQES Family Favorites
       </label>
       <button class="list-btn" id="clear-f" onclick="clearAllFilters()" style="display:none;background:#fff;color:#9A3412;border-color:#FDBA8C"></button>
       <button class="list-btn" id="list-btn" onclick="openList()" title="Save camps to a shortlist and compare them side by side">☆ Save &amp; Compare</button>
@@ -850,7 +850,7 @@ function renderGrid(list){
     const extBadge=c.extendedDay==='Yes'?`<span class="ext-tag">+ Extended Day</span>`:'';
     const newBadge=c.isNew?`<span class="new-badge">NEW</span>`:'';
     const catBadges=c.categories.map(cat=>`<span class="cbadge" style="background:${CAT_BG[cat]||'#eee'};color:${CAT_COLOR[cat]||'#555'}">${cat}</span>`).join('');
-    const favBadge=c.favorite?`<span class="fav-tag">★ JQES FAN FAVORITE</span>`:'';
+    const favBadge=c.favorite?`<span class="fav-tag">★ JQES FAMILY FAVORITE</span>`:'';
     const statusBadge=c.status==='confirmed'?`<span class="ok-tag">2027 DATES SET</span>`:`<span class="tbc-tag">2027 TBC</span>`;
     const tagRow=[favBadge,statusBadge,freeBadge,extBadge,newBadge].filter(Boolean).join('');
     const saveBtn=`<button class="save-btn${isSaved(c.id)?' on':''}" title="Save to my list" aria-label="Save ${c.name} to my list" onclick="return toggleSave(event,'${c.id}')">${isSaved(c.id)?'★ Saved':'☆ Save'}</button>`;
@@ -1099,7 +1099,7 @@ const CMP_ROWS = [
   ['Neighborhood',  c => c.area || '—'],
   ['Location',      c => c.location || '—'],
   ['Getting there', c => c.transport || '—'],
-  ['JQES favorite', c => c.favorite ? '★ Yes' : '—'],
+  ['JQES Family Favorite', c => c.favorite ? '★ Yes' : '—'],
   ['Notes',         c => c.note || (c.ref2026 ? '2026 for reference: ' + c.ref2026 : '—')],
   ['Website',       c => c.url || '—'],
   ['Last checked',  c => c.checked || '—']
@@ -1131,7 +1131,7 @@ function renderCompare(){
 
 /* ── export ── */
 const PLAN_HEAD = ['Pick','Status','Rating','For which child','Friends going','Family notes'];
-const EXP_HEAD = PLAN_HEAD.concat(['Camp','Neighborhood','2027 dates published?','2027 dates','Registration opens','Registration detail','Ages','Cost','Hours','Extended day','Getting there','JQES favorite','Categories','Location','Notes','Website','Last checked']);
+const EXP_HEAD = PLAN_HEAD.concat(['Camp','Neighborhood','2027 dates published?','2027 dates','Registration opens','Registration detail','Ages','Cost','Hours','Extended day','Getting there','JQES Family Favorite','Categories','Location','Notes','Website','Last checked']);
 function exportRows(){
   return [EXP_HEAD].concat(savedCamps().map(c => [
     '', '', '', '', '', '',                   // the family fills these in
@@ -1244,7 +1244,7 @@ function buildPlannerWorkbook(){
       row.height = 42;
       const camp = row.getCell(col('Camp'));
       camp.font = {size:11, bold:true};
-      if (r[idx('JQES favorite')] === '★') { camp.fill = fill(GOLD); camp.font = {size:11, bold:true, color:{argb:'FF5C2E00'}}; }
+      if (r[idx('JQES Family Favorite')] === '★') { camp.fill = fill(GOLD); camp.font = {size:11, bold:true, color:{argb:'FF5C2E00'}}; }
       else if (ri % 2) { for (let i=nPlan+1;i<=nCols;i++) if (!row.getCell(i).fill) row.getCell(i).fill = fill('FFFAFAFA'); }
 
       const pub = row.getCell(col('2027 dates published?'));
@@ -1529,7 +1529,7 @@ function activeFilters(){
   if (sel('area-f'))f.push({label:sel('area-f'), clear:()=>document.getElementById('area-f').value=''});
   if (sel('reg-f')) f.push({label:sel('reg-f'),  clear:()=>document.getElementById('reg-f').value=''});
   if (sel('week-f'))f.push({label:sel('week-f'), clear:()=>document.getElementById('week-f').value=''});
-  if (ck('fav-f'))  f.push({label:'JQES favorites only', clear:()=>document.getElementById('fav-f').checked=false});
+  if (ck('fav-f'))  f.push({label:'JQES Family Favorites only', clear:()=>document.getElementById('fav-f').checked=false});
   if (ck('conf-f')) f.push({label:'2027 dates confirmed only',
     clear:()=>document.getElementById('conf-f').checked=false});
   if (typeof activeCat !== 'undefined' && activeCat !== 'all')
