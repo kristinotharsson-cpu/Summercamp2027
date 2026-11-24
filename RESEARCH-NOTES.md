@@ -2,9 +2,9 @@
 
 Every program checked against its own website on **November 17, 2026**.
 
-- **61 programs** total — 12 have published 2027 dates, 49 have not yet
-- **8 open for registration now**, 5 with a dated opening
-- **7 marked as JQES Family Favorites**
+- **62 programs** total — 13 have published 2027 dates, 49 have not yet
+- **9 open for registration now**, 5 with a dated opening
+- **8 marked as JQES Family Favorites**
 
 
 ## Registration diary
@@ -20,7 +20,7 @@ Every program checked against its own website on **November 17, 2026**.
 - **2027-01-19** — Hill House Kiddie Kamp  
   Returning families Tue, Jan 19, 2027 at 10am · New families Thu, Jan 21, 2027 at 10am
 
-**Open right now:** Hale Day Camp (Westwood), Minni Summer Program – Beacon Hill, Minni × Urbanity Dance – South End, Nike Tennis Camp at MIT, Everwood Day Camp, Red Sox Summer Camp, Warrior Ice Arena (Boston Bruins Practice Facility), LINX Summer Camps (Wellesley)
+**Open right now:** Hale Day Camp (Westwood), Minni Summer Program – Beacon Hill, Minni × Urbanity Dance – South End, Nike Tennis Camp at MIT, Urbanity Dance Summer Programs (South End), Everwood Day Camp, Red Sox Summer Camp, Warrior Ice Arena (Boston Bruins Practice Facility), LINX Summer Camps (Wellesley)
 
 
 ## JQES Family Favorites
@@ -30,6 +30,7 @@ Every program checked against its own website on **November 17, 2026**.
 - **Minni Summer Program – Beacon Hill** — 2027 dates published
 - **Minni × Urbanity Dance – South End** — 2027 dates published
 - **Nike Tennis Camp at MIT** — 2027 dates published
+- **Urbanity Dance Summer Programs (South End)** — 2027 dates published
 - **BMP Summer Strings (Boston Music Project)** — 2027 dates published
 - **Boston Ballet School Summer Camps** — dates not yet posted
 - **New England Base Camp – Cub Scout Day Camp (JQES Pack 617 Bus)** — dates not yet posted
@@ -49,7 +50,7 @@ Every program checked against its own website on **November 17, 2026**.
 - https://hale.education/program/hale-day-camp/
 
 ### Minni Summer Program – Beacon Hill
-- **Dates:** Jun 21–24 · Jun 28–Jul 1 · Jul 5–8 · Jul 19–22 · Jul 26–29 · Aug 2–5 · Aug 9–12 · Aug 16–19 · Aug 23–26 · Aug 30–Sep 2, 2027 · No week of July 12
+- **Dates:** Jun 21–24 · Jun 28–Jul 1 · Jul 5–8 · Jul 19–22 · Jul 26–29 · Aug 2–5 · Aug 9–12 · Aug 16–19 · Aug 23–26 · Aug 30–Sep 2, 2027
 - **Hours:** 9:00am – 3:00pm, Mon–Thu · Extended day to 5:00pm
 - **Cost:** $660/week · Extended day $220/week
 - **Ages:** 4–10 · Maximum 16 per session
@@ -69,14 +70,24 @@ Every program checked against its own website on **November 17, 2026**.
 - https://minni.space/summer-program-urbanity
 
 ### Nike Tennis Camp at MIT
-- **Dates:** June 14–17 · June 21–24 · June 28–July 1 · July 5–8 · July 12–15 · July 19–22 · July 26–29, 2027
+- **Dates:** June 14–17 · June 21–24 · June 28–July 1 · July 5–8 · July 12–15 · July 19–22 · July 26–29 · Aug 2–5, 2027
 - **Hours:** Half day 9:00am – 12:00pm · Full day 9:00am – 4:00pm, Mon–Thu
 - **Cost:** $445 half day · $749 full day
 - **Ages:** 6–18 (half day only for 6–8; full day from age 9)
-- **Registration:** Open now
+- **Registration:** Open now — ussportscamps.com · Sessions sold out here last year, so expect high demand
 - **Location:** 133 Amherst Alley, Cambridge
 - **Getting there:** No transport provided — the camp states it does not run transport to or from the airport, train stations or bus depots.
 - https://www.ussportscamps.com/tennis/nike/mit-nike-tennis-camp
+
+### Urbanity Dance Summer Programs (South End)
+- **Dates:** Jun 14–18 · Jun 21–25 · Jun 28–Jul 2 · Aug 16–20 · Aug 23–27 · Kids Summer Dance Aug 30–Sep 3, 2027
+- **Hours:** Full day 9:00am–4:30pm · Half day 9:00am–12:30pm or 1:00–4:30pm · Early drop-off 8:00–9:00am · Extended day 4:30–5:30pm
+- **Cost:** Check urbanitydance.org for 2027 rates · Full week or single days
+- **Ages:** 3–10 · Youth Summer Dance 4–10 · Kids Summer Dance 3–6
+- **Registration:** Open now — book at urbanitydance.org · Full week or individual days
+- **Location:** Urbanity Dance, South End, Boston
+- **Getting there:** No camp-run transport. On full days staff walk children between Urbanity and Minni.
+- https://www.urbanitydance.org/childhood-summer-2027
 
 ### BMP Summer Strings (Boston Music Project)
 - **Dates:** July 19 – July 30, 2027 · Mon–Fri

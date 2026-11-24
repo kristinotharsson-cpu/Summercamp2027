@@ -8,7 +8,24 @@ that JSON. Families read it; a wrong date in front of them is far worse than a m
 
 Start by running: python3 -I build/weekly_check.py
 
-That sweep writes `build/weekly-findings.json` and edits nothing itself. Read it.
+That sweep writes `build/weekly-findings.json` and edits nothing itself. Read it. It
+separates what it found into three lists, and each needs a different response.
+
+**`link_problems`** — a camp whose URL no longer resolves. Treat this as a real finding,
+not a skipped row. A dead link usually means the camp renamed or moved its page, and the
+new page often carries the dates we are waiting for. Open the site's root, look for the
+current summer page, and if you find a clear replacement, update that camp's `url` and say
+so. If you cannot find one, leave the url alone and list the camp as needing a person.
+These links are also broken for every family reading the page, so never pass over them.
+
+**`changed`** — a camp we already mark `confirmed` whose page now shows session dates we
+have not stored. Confirmed does not mean finished. A camp can add a location, publish a
+week-by-week schedule where we stored a one-line span, or drop a week. Compare what we hold
+against the page and update `dates` when the page is clearly more specific or more current.
+If the page merely says the same thing in other words, change nothing.
+
+**`findings`** — a camp whose 2027 dates or registration date were unknown and whose page
+now shows a 2027 or registration signal. These are the ones to judge strictly, below.
 
 Each finding is a camp whose stored record says its 2027 dates or registration date are
 NOT yet known, together with text scraped from its website this morning.

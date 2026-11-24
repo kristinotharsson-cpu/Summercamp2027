@@ -104,8 +104,8 @@
    18
   ],
   "description": "Week-long tennis camp on the MIT courts, run by US Sports Camps. Co-ed, all levels from beginner to advanced. Half-day mornings or full-day sessions, Monday through Thursday, with instruction, match play and games on the Charles.",
-  "dates": "June 14–17 · June 21–24 · June 28–July 1 · July 5–8 · July 12–15 · July 19–22 · July 26–29, 2027",
-  "registration": "Open now",
+  "dates": "June 14–17 · June 21–24 · June 28–July 1 · July 5–8 · July 12–15 · July 19–22 · July 26–29 · Aug 2–5, 2027",
+  "registration": "Open now — ussportscamps.com · Sessions sold out here last year, so expect high demand",
   "hours": "Half day 9:00am – 12:00pm · Full day 9:00am – 4:00pm, Mon–Thu",
   "extendedDay": "No",
   "categories": [
@@ -117,7 +117,7 @@
   "isNew": true,
   "status": "confirmed",
   "contact": null,
-  "checked": "Nov 17, 2026",
+  "checked": "Nov 23, 2026",
   "id": "nike-tennis-camp-at-mit",
   "regStatus": "open",
   "regDate": null,
@@ -125,6 +125,38 @@
   "favorite": true,
   "favoriteNote": null,
   "area": "Cambridge & Somerville"
+ },
+ {
+  "name": "Urbanity Dance Summer Programs (South End)",
+  "id": "urbanity-dance-summer-programs",
+  "status": "confirmed",
+  "dates": "Jun 14–18 · Jun 21–25 · Jun 28–Jul 2 · Aug 16–20 · Aug 23–27 · Kids Summer Dance Aug 30–Sep 3, 2027",
+  "hours": "Full day 9:00am–4:30pm · Half day 9:00am–12:30pm or 1:00–4:30pm · Early drop-off 8:00–9:00am · Extended day 4:30–5:30pm",
+  "cost": "Check urbanitydance.org for 2027 rates · Full week or single days",
+  "ages": "3–10 · Youth Summer Dance 4–10 · Kids Summer Dance 3–6",
+  "ageRange": [
+   3,
+   10
+  ],
+  "description": "Urbanity Dance's own summer programs in the South End, taught by Boston teaching artists. The Youth Summer Dance Program for ages 4 to 10 runs five weeks, as a full day or either half, and pairs with Minni so children can split the day between dance and art — staff walk them between the two buildings. Separately, the Kids Summer Dance Program for ages 3 to 6 is one full week at the end of summer covering contemporary, ballet, acro, jazz, musical theater, hip hop, improvisation and yoga/mindfulness. Unusually, you can book single days rather than a whole week.",
+  "registration": "Open now — book at urbanitydance.org · Full week or individual days",
+  "regStatus": "open",
+  "regDate": null,
+  "extendedDay": "Yes",
+  "categories": [
+   "Dance & Movement",
+   "Performing Arts"
+  ],
+  "free": false,
+  "location": "Urbanity Dance, South End, Boston",
+  "transport": "No camp-run transport. On full days staff walk children between Urbanity and Minni.",
+  "url": "https://www.urbanitydance.org/childhood-summer-2027",
+  "isNew": true,
+  "favorite": true,
+  "favoriteNote": null,
+  "note": null,
+  "area": "South End & Roxbury",
+  "checked": "Nov 23, 2026"
  },
  {
   "name": "BMP Summer Strings (Boston Music Project)",
