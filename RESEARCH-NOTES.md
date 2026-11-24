@@ -2,8 +2,8 @@
 
 Every program checked against its own website on **November 17, 2026**.
 
-- **61 programs** total — 11 have published 2027 dates, 50 have not yet
-- **7 open for registration now**, 5 with a dated opening
+- **61 programs** total — 12 have published 2027 dates, 49 have not yet
+- **8 open for registration now**, 5 with a dated opening
 - **7 marked as JQES Family Favorites**
 
 
@@ -20,7 +20,7 @@ Every program checked against its own website on **November 17, 2026**.
 - **2027-01-19** — Hill House Kiddie Kamp  
   Returning families Tue, Jan 19, 2027 at 10am · New families Thu, Jan 21, 2027 at 10am
 
-**Open right now:** Hale Day Camp (Westwood), Minni Summer Program – Beacon Hill, Nike Tennis Camp at MIT, Everwood Day Camp, Red Sox Summer Camp, Warrior Ice Arena (Boston Bruins Practice Facility), LINX Summer Camps (Wellesley)
+**Open right now:** Hale Day Camp (Westwood), Minni Summer Program – Beacon Hill, Minni × Urbanity Dance – South End, Nike Tennis Camp at MIT, Everwood Day Camp, Red Sox Summer Camp, Warrior Ice Arena (Boston Bruins Practice Facility), LINX Summer Camps (Wellesley)
 
 
 ## JQES Family Favorites
@@ -28,10 +28,10 @@ Every program checked against its own website on **November 17, 2026**.
 - **Hale Day Camp (Westwood)** — 2027 dates published
   - Hale's free buses don't stop in Chinatown or downtown. The closest stops are Dorchester, Roslindale, West Roxbury and Jamaica Plain. We need at least 10 JQES kids to get a bus to pick up at school — email josiahquincyparentcouncil@gmail.com to let us know you're interested.
 - **Minni Summer Program – Beacon Hill** — 2027 dates published
+- **Minni × Urbanity Dance – South End** — 2027 dates published
 - **Nike Tennis Camp at MIT** — 2027 dates published
 - **BMP Summer Strings (Boston Music Project)** — 2027 dates published
 - **Boston Ballet School Summer Camps** — dates not yet posted
-- **Minni × Urbanity Dance – South End** — dates not yet posted
 - **New England Base Camp – Cub Scout Day Camp (JQES Pack 617 Bus)** — dates not yet posted
 
 
@@ -49,14 +49,24 @@ Every program checked against its own website on **November 17, 2026**.
 - https://hale.education/program/hale-day-camp/
 
 ### Minni Summer Program – Beacon Hill
-- **Dates:** June 21 – September 2, 2027 · Eleven themed weekly sessions, Mon–Thu
+- **Dates:** Jun 21–24 · Jun 28–Jul 1 · Jul 5–8 · Jul 19–22 · Jul 26–29 · Aug 2–5 · Aug 9–12 · Aug 16–19 · Aug 23–26 · Aug 30–Sep 2, 2027 · No week of July 12
 - **Hours:** 9:00am – 3:00pm, Mon–Thu · Extended day to 5:00pm
 - **Cost:** $660/week · Extended day $220/week
-- **Ages:** 4–10
-- **Registration:** Open now
+- **Ages:** 4–10 · Maximum 16 per session
+- **Registration:** Open now — book at hisawyer.com/minni · 10% off with code EARLYBIRDSUMMER if you book before Dec 31, 2026
 - **Location:** 125 Charles St, Boston
 - **Getting there:** No camp-run transport — drop-off and pick-up at 125 Charles St.
 - https://minni.space/summer-program-beacon-hill
+
+### Minni × Urbanity Dance – South End
+- **Dates:** Jun 14–18 · Jun 21–25 · Jun 28–Jul 2 · Aug 16–20 · Aug 23–27, 2027 · Five weeks
+- **Hours:** Movers + Makers 9:00am–12:30pm · Dynamic Designers 1:00–4:30pm · Full day 9:00am–4:30pm, Mon–Fri
+- **Cost:** Check minni.space for 2027 rates · 10% off with code EARLYBIRDSUMMER before Dec 31, 2026 · A full day means registering separately with both Minni and Urbanity
+- **Ages:** 4–10
+- **Registration:** Open now — book at hisawyer.com/minni · 10% off with code EARLYBIRDSUMMER if you book before Dec 31, 2026
+- **Location:** Mayne, South End, Boston · Urbanity Dance studios for the other half-day
+- **Getting there:** No camp-run transport — South End.
+- https://minni.space/summer-program-urbanity
 
 ### Nike Tennis Camp at MIT
 - **Dates:** June 14–17 · June 21–24 · June 28–July 1 · July 5–8 · July 12–15 · July 19–22 · July 26–29, 2027
@@ -189,7 +199,6 @@ Every program checked against its own website on **November 17, 2026**.
 | Little Panda Mandarin Immersion Camp | No 2027 dates posted. | https://www.littlepandachildcare.com/ |
 | Mass Audubon Chickadees Nature Camp (Milton) | Blue Hills camp page has moved; 2027 sessions not yet listed. | https://www.massaudubon.org/programs/blue-hills |
 | MFA Summer Studio Art Classes | The MFA lists Summer 2027 as going on sale December 8, 2026 — week themes and dates should follow then. | https://www.mfa.org/programs/studio-art-classes/kids |
-| Minni × Urbanity Dance – South End | Minni's Beacon Hill site has posted 2027 dates; the South End sessions have not. | https://minni.space/2026-summer-program-urbanity |
 | MIT All Sports Summer Day Camp | 2026 sessions still listed. | https://www.mitrecsports.com/mit-day-camp22/ |
 | New England Base Camp – Cub Scout Day Camp (JQES Pack 617 Bus) | No 2027 dates posted yet. | https://www.scoutspirit.org/ |
 | Northeastern University – Math Masters | Site says Math Masters is coming soon in 2027. | https://bouve.northeastern.edu/clinics/speech-language-and-hearing-center/math-masters-summer-program/ |

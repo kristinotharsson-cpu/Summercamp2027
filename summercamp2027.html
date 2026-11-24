@@ -354,6 +354,11 @@ table.cmp .rm:hover{color:var(--red);}
 .status-strip.ok{background:#F7F9FB;border:1px solid #DDE3EA;color:#3F4B5B;}
 .status-strip.ok .hd{color:#1F2A37;}
 .free-tag{background:#CFFAFE;color:#155E75;}
+
+/* the text message is the thing people actually use — let it lead */
+.exp-btn.exp-text{background:#0D9488;font-size:0.9rem;padding:12px 20px;border-radius:9px;box-shadow:0 2px 8px rgba(13,148,136,0.35);}
+.exp-btn.exp-text:hover{background:#0B8077;}
+.export-row{align-items:center;}
 </style>
 </head>
 <body>
@@ -382,7 +387,7 @@ table.cmp .rm:hover{color:var(--red);}
     </div>
   </div>
   <div style="background:rgba(255,255,255,0.08);border-top:1px solid rgba(255,255,255,0.12);padding:10px 40px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-    <span style="font-size:0.8rem;color:rgba(255,255,255,0.75);"><strong style="color:#FCD34D;">11 of 61</strong> programs have published their 2027 dates.</span>
+    <span style="font-size:0.8rem;color:rgba(255,255,255,0.75);"><strong style="color:#FCD34D;">12 of 61</strong> programs have published their 2027 dates.</span>
     <span id="freshness" style="font-size:0.8rem;"></span>
   </div>
 </header>
@@ -470,7 +475,7 @@ table.cmp .rm:hover{color:var(--red);}
 <div class="grid-wrap">
   <div class="tip-bar" id="tip-bar">
     <span class="tip-ic">☆</span>
-    <span>Tap <strong>☆ Save</strong> on any camp to build a shortlist. Then <strong>Save &amp; Compare</strong> lines them up side by side — dates, cost, hours, when registration opens — and exports the lot to Excel, CSV, or a message you can text.</span>
+    <span>Tap <strong>☆ Save</strong> on any camp to build a shortlist. Then <strong>Save &amp; Compare</strong> lines them up side by side — dates, cost, hours, when registration opens — then <strong>text them to another family</strong> or export to Excel.</span>
     <button class="tip-x" onclick="dismissTip()">Got it</button>
   </div>
   <div class="grid" id="grid"></div>
@@ -630,14 +635,14 @@ table.cmp .rm:hover{color:var(--red);}
       <button class="modal-close" onclick="closeList()">✕</button>
     </div>
     <div class="export-row">
+      <button class="exp-btn exp-text" onclick="openMsg()" title="Copies a ready-to-send message with the camp names, dates and a blank for the weeks you are considering">💬 Text these camps to someone</button>
       <button class="exp-btn exp-xlsx" onclick="exportXLSX()">⬇ Excel (.xlsx)</button>
       <button class="exp-btn exp-csv"  onclick="exportCSV()">⬇ CSV</button>
-      <button class="exp-btn" style="background:#0D9488" onclick="openMsg()" title="Copies a ready-to-send message with the camp names, dates and a blank for the weeks you are considering">💬 Copy as a text</button>
       <button class="exp-btn" style="background:#7C3AED" onclick="icsForSavedList()">⏰ Registration reminders (.ics)</button>
       <button class="exp-btn exp-print" onclick="printList()" title="Opens your print dialog — choose Save as PDF for a landscape planner">🖨 Print / Save as PDF</button>
       <button class="exp-btn" style="background:#fff;color:var(--gray);border:1.5px solid var(--border);margin-left:auto" onclick="clearList()">Clear list</button>
     </div>
-    <p class="share-help"><strong>Sharing this list.</strong> <em>Copy as a text</em> gives you a message ready to paste into Messages or email — camp names, dates and a blank to drop in the weeks you are thinking about. <em>Excel</em> is the fuller planner, with columns to tick off, rate and track who else is going.</p>
+    <p class="share-help"><strong>Sharing this list.</strong> <em>Text these camps to someone</em> writes the message for you — camp names, dates, and every week each camp runs, so you delete the ones you do not want before sending. <em>Excel</em> is the fuller planner: one tab to tick off, rate and track who else is going, and a second tab with every week of the summer against every camp.</p>
     <div id="cmp-body"></div>
   </div>
 </div>
@@ -660,7 +665,8 @@ const CAT_BG = {
 
 let camps = [
   {"name": "Hale Day Camp (Westwood)", "id": "hale-day-camp-westwood", "status": "confirmed", "dates": "June 21 – August 20, 2027 · Counselor-in-Training runs June 21 – August 13, 2027", "hours": "8:45am – 3:45pm · Hale does not offer an extended day option", "cost": "$975–$2,400 depending on unit and number of sessions · Kindercamp and Lower Camp $975–$1,925 · Teen Camp $1,075–$2,075 · CIT $2,295–$2,400 · Financial aid available", "ages": "4–15 · Kindercamp 4–5 · Lower 6–7 · Middle 8–10 · Teen 11–13 · CIT 14–15", "ageRange": [4, 15], "description": "Hale Education's classic day camp on its own reservation in Westwood — swimming and boating in the ponds, archery, arts and crafts, field games, hiking, fishing and a low and high ropes course. Over 1,000 campers each summer, split into five age-based units by rising grade, with a 1:6 staff-to-camper ratio in Lower Camp. Middle and Teen Camp take off-site trips, and Teen Camp includes an overnight campout at Hale. Kindercampers need to be toilet-trained. Not to be confused with Camp Hale, the overnight camp in New Hampshire run by United South End Settlements — a separate organization, listed further down.", "registration": "Open now — enroll at hale.education · Bus sign-up is separate, after you enroll, and due by May", "regStatus": "open", "regDate": null, "extendedDay": "No", "categories": ["Nature & Outdoor", "Sports & Athletics", "Arts & Creative"], "free": false, "location": "80 Carby Street, Westwood, MA 02090", "transport": "Free camp buses — every camper rides one. Stops in Braintree, Brookline, Dedham, Dorchester, Dover, Framingham, Jamaica Plain, Medfield, Milton, Natick, Needham, Newton, Norwood, Roslindale, Walpole, Wellesley, West Roxbury and Westwood. A staff member rides every route. Drop-off and pick-up at camp are not permitted, though there is a local bus stop in Westwood if you would rather drive.", "contact": "Jaclyn Ross, Director of Camp and Community Programs · 781-326-1770", "url": "https://hale.education/program/hale-day-camp/", "isNew": true, "favorite": true, "favoriteNote": "Hale's free buses don't stop in Chinatown or downtown. The closest stops are Dorchester, Roslindale, West Roxbury and Jamaica Plain. We need at least 10 JQES kids to get a bus to pick up at school — email josiahquincyparentcouncil@gmail.com to let us know you're interested.", "note": null, "checked": "Nov 17, 2026", "area": "Greater Boston suburbs"},
-  {"name": "Minni Summer Program – Beacon Hill", "cost": "$660/week · Extended day $220/week", "ages": "4–10", "ageRange": [4, 10], "description": "Eleven individually themed weeks of art + design programming led by professional teaching artists. Each week explores a new creative theme through hands-on projects, outdoor art-making, and field trips to local galleries and studios.", "dates": "June 21 – September 2, 2027 · Eleven themed weekly sessions, Mon–Thu", "registration": "Open now", "hours": "9:00am – 3:00pm, Mon–Thu · Extended day to 5:00pm", "extendedDay": "Yes", "categories": ["Arts & Creative"], "free": false, "url": "https://minni.space/summer-program-beacon-hill", "location": "125 Charles St, Boston", "status": "confirmed", "checked": "Nov 17, 2026", "id": "minni-summer-program-beacon-hill", "regStatus": "open", "regDate": null, "transport": "No camp-run transport — drop-off and pick-up at 125 Charles St.", "favorite": true, "favoriteNote": null, "area": "Beacon Hill & Back Bay"},
+  {"name": "Minni Summer Program – Beacon Hill", "cost": "$660/week · Extended day $220/week", "ages": "4–10 · Maximum 16 per session", "ageRange": [4, 10], "description": "Ten individually themed weeks of art and design for little artists, Monday to Thursday, with no more than 16 children per session. 2027 themes: Creative Carnival, Animal Adventures, Playful Potions, Toy Factory, Music Makers, Aquatic Artists, Nature Lovers, People + Places, Great Galaxies and Minni in Motion. Led by teaching artists and professional educators, with outdoor art-making when the weather allows and field trips to local galleries, shops and studios. Note there is no week of July 12.", "dates": "Jun 21–24 · Jun 28–Jul 1 · Jul 5–8 · Jul 19–22 · Jul 26–29 · Aug 2–5 · Aug 9–12 · Aug 16–19 · Aug 23–26 · Aug 30–Sep 2, 2027", "registration": "Open now — book at hisawyer.com/minni · 10% off with code EARLYBIRDSUMMER if you book before Dec 31, 2026", "hours": "9:00am – 3:00pm, Mon–Thu · Extended day to 5:00pm", "extendedDay": "Yes", "categories": ["Arts & Creative"], "free": false, "url": "https://minni.space/summer-program-beacon-hill", "location": "125 Charles St, Boston", "status": "confirmed", "checked": "Nov 23, 2026", "id": "minni-summer-program-beacon-hill", "regStatus": "open", "regDate": null, "transport": "No camp-run transport — drop-off and pick-up at 125 Charles St.", "favorite": true, "favoriteNote": null, "area": "Beacon Hill & Back Bay", "note": null},
+  {"name": "Minni × Urbanity Dance – South End", "cost": "Check minni.space for 2027 rates · 10% off with code EARLYBIRDSUMMER before Dec 31, 2026 · A full day means registering separately with both Minni and Urbanity", "ages": "4–10", "ageRange": [4, 10], "description": "Third year of Minni and Urbanity Dance teaming up in the South End, for ages 4 to 10, Monday to Friday. New this year: Movers + Makers runs in the morning and Dynamic Designers in the afternoon, so you can do a full day of Minni or split the day between Minni's art programming and Urbanity's dance studios. Minni's half is hosted at Mayne in the South End. Design projects rotate each week. A full day needs two registrations, one with Minni and one with Urbanity.", "dates": "Jun 14–18 · Jun 21–25 · Jun 28–Jul 2 · Aug 16–20 · Aug 23–27, 2027 · Five weeks", "registration": "Open now — book at hisawyer.com/minni · 10% off with code EARLYBIRDSUMMER if you book before Dec 31, 2026", "hours": "Movers + Makers 9:00am–12:30pm · Dynamic Designers 1:00–4:30pm · Full day 9:00am–4:30pm, Mon–Fri", "extendedDay": "Yes", "categories": ["Arts & Creative", "Dance & Movement"], "free": false, "url": "https://minni.space/summer-program-urbanity", "location": "Mayne, South End, Boston · Urbanity Dance studios for the other half-day", "status": "confirmed", "ref2026": "June 15–19, June 22–26, July 13–17, July 20–24, Aug 24–28, Aug 31–Sept 4", "note": null, "checked": "Nov 23, 2026", "id": "minni-urbanity-dance-south-end", "regStatus": "open", "regDate": null, "transport": "No camp-run transport — South End.", "favorite": true, "favoriteNote": null, "area": "South End & Roxbury"},
   {"name": "Nike Tennis Camp at MIT", "cost": "$445 half day · $749 full day", "ages": "6–18 (half day only for 6–8; full day from age 9)", "ageRange": [6, 18], "description": "Week-long tennis camp on the MIT courts, run by US Sports Camps. Co-ed, all levels from beginner to advanced. Half-day mornings or full-day sessions, Monday through Thursday, with instruction, match play and games on the Charles.", "dates": "June 14–17 · June 21–24 · June 28–July 1 · July 5–8 · July 12–15 · July 19–22 · July 26–29, 2027", "registration": "Open now", "hours": "Half day 9:00am – 12:00pm · Full day 9:00am – 4:00pm, Mon–Thu", "extendedDay": "No", "categories": ["Sports & Athletics"], "free": false, "location": "133 Amherst Alley, Cambridge", "url": "https://www.ussportscamps.com/tennis/nike/mit-nike-tennis-camp", "isNew": true, "status": "confirmed", "contact": null, "checked": "Nov 17, 2026", "id": "nike-tennis-camp-at-mit", "regStatus": "open", "regDate": null, "transport": "No transport provided — the camp states it does not run transport to or from the airport, train stations or bus depots.", "favorite": true, "favoriteNote": null, "area": "Cambridge & Somerville"},
   {"name": "BMP Summer Strings (Boston Music Project)", "cost": "$1,400 for 2-week program ($140/day) · $45 non-refundable registration fee · Instrument rental $75 (strings, brass, winds) · Payment plans available · Financial aid available", "ages": "5–14 · Ensembles by age and experience: K2–1st grade, and 2nd–6th grade (2+ years' experience preferred)", "ageRange": [5, 14], "description": "A two-week intensive chamber strings program run by Boston Music Project at the Little Building at Emerson College (80 Boylston St). Students are placed in ensembles by age and experience level — K2–1st grade (1+ year experience) and 2nd–6th grade (2+ years preferred). Daily schedule includes group rehearsal, chamber rehearsal, electives, and private lessons. Snack provided; lunch not provided. Instrument rentals available for strings, brass, and winds. Limited seats — registration is open.", "dates": "July 19 – July 30, 2027 · Mon–Fri", "registration": "Registration opens Mon, Nov 23, 2026 · Limited seats · registrar@bostonmusicproject.org", "hours": "9:00am – 4:00pm", "extendedDay": "—", "categories": ["Performing Arts", "Arts & Creative"], "free": false, "contact": "registrar@bostonmusicproject.org", "url": "https://www.bostonmusicproject.org/summerstrings", "status": "confirmed", "checked": "Nov 17, 2026", "id": "bmp-summer-strings-boston-music-project", "regStatus": "opens", "regDate": "2026-11-23", "transport": "No camp-run transport — 80 Boylston St, by Boston Common.", "favorite": true, "favoriteNote": null, "location": "80 Boylston St, Boston, MA 02116 (the Little Building at Emerson College)", "area": "Chinatown & Downtown"},
   {"name": "Everwood Day Camp", "cost": "Early Bird 2027 rates through Sept 30, 2026: $1,890 for one 2-week session up to $7,350 for the full summer", "ages": "4–15", "ageRange": [4, 15], "description": "Set on the shores of Lake Massapoag, Everwood offers a classic summer camp experience with swimming, sports, arts, boating, and team-building activities. Offers flexible 2-week sessions that can be combined for 4, 6, or 8 weeks, plus a Post Week add-on in August.", "dates": "Session 1: June 21 – July 2, 2027 · Session 2: July 6–16 (closed July 5) · Session 3: July 19–30 · Session 4: Aug 2–13 · Post Week (add-on): Aug 16–20", "registration": "Enrolling now · The Early Bird rate closed September 30, 2026 · $150 per week deposit, balance due April 1, 2027", "hours": "Check website", "extendedDay": "—", "categories": ["Nature & Outdoor", "Sports & Athletics", "Arts & Creative"], "free": false, "url": "https://everwooddaycamp.com/dates-enrollment/", "status": "confirmed", "checked": "Nov 17, 2026", "id": "everwood-day-camp", "regStatus": "open", "regDate": null, "transport": "Camp buses with pick-up and drop-off across Greater Boston, staffed by trained bus counselors. Seatbelts on every bus, licensed school-year drivers. Optional add-on priced by stop; dropping off at camp yourself is free.", "favorite": false, "favoriteNote": null, "location": "125 Lakeview Street, Sharon, MA 02067 (on Lake Massapoag)", "area": "Greater Boston suburbs"},
@@ -671,7 +677,6 @@ let camps = [
   {"name": "Hill House Kiddie Kamp", "cost": "$435/week · Max 25 campers/week · Must be potty trained", "ages": "3–5", "ageRange": [3, 5], "description": "The perfect combination of exciting new experiences and a safe, familiar environment. Beloved counselors guide campers through games, crafts, stories, songs, age-appropriate athletics, and outdoor fun on the Esplanade. Children must be potty trained.", "dates": "Session 1: June 14–17, 2027 · 2: June 21–25 · 3: June 28–July 2 · 4: July 6–9 · 5: July 12–16 · 6: July 19–23 · 7: July 26–30 · 8: Aug 2–6 · 9: Aug 9–13 · 10: Aug 16–20", "registration": "Returning families Tue, Jan 19, 2027 at 10am · New families Thu, Jan 21, 2027 at 10am", "hours": "Drop-off 8:30–9:00am · Pick-up 1:00–1:30pm, Mon–Fri", "extendedDay": "No", "categories": ["Arts & Creative"], "free": false, "url": "https://www.hillhouseboston.org/Camps/Summer_Kiddie_Kamp.htm", "location": "127 Mt. Vernon St, Boston", "status": "confirmed", "checked": "Nov 17, 2026", "id": "hill-house-kiddie-kamp", "regStatus": "opens", "regDate": "2027-01-19", "transport": "No camp-run transport — drop-off 8:30–9:00am and pick-up 1:00–1:30pm at 127 Mt. Vernon St.", "favorite": false, "favoriteNote": null, "area": "Beacon Hill & Back Bay"},
   {"name": "Experience Camps (Grief Camp, Maine)", "cost": "Free · Application required", "ages": "Entering grades 4–11", "ageRange": [9, 17], "description": "A free, one-week overnight camp in Maine for children grieving the loss of a parent, sibling, or caregiver. Healing, connection, and fun in a safe and supportive environment.", "dates": "Maine (Girls): Aug 23–28, 2027 · Maine (Boys): Aug 23–28, 2027 · Camp Somerset, Smithfield, ME", "registration": "2027 applications not yet confirmed — experiencecamps.org", "hours": "Overnight (one week)", "extendedDay": "—", "categories": ["Community/Free"], "free": true, "url": "https://experiencecamps.org/", "status": "confirmed", "checked": "Nov 17, 2026", "id": "experience-camps-grief-camp-maine", "regStatus": "tbd", "regDate": null, "transport": "Overnight camp in Maine. Arrival and departure arrangements are shared closer to the session.", "favorite": false, "favoriteNote": null, "location": "Camp Somerset, 11 Somerset Lane, Smithfield, ME", "area": "Overnight camps"},
   {"name": "Boston Ballet School Summer Camps", "id": "boston-ballet-school-summer-camps", "cost": "Check website · Financial aid available", "ages": "2–9 (age as of August 31)", "ageRange": [2, 9], "description": "Boston Ballet School's summer programs for young dancers — co-ed, and new students are welcome. Ages 2–6 Summer Sessions blend the school-year curriculum with summer fun, building musical, body and spatial awareness through storytelling and movement. Ages 5–6 Preparatory Workshop explores preparatory ballet technique and creative dance. Ages 7–9 Foundations Workshop focuses on technique, conditioning and stretching alongside enrichments such as modern dance, ballet history and ballet mime.", "dates": "2027 dates not yet posted", "registration": "Not yet open for 2027", "hours": "Check website — varies by program", "extendedDay": "—", "categories": ["Dance & Movement", "Performing Arts", "Arts & Creative"], "free": false, "location": "Boston, Brookline and Newton studios", "url": "https://www.bostonballet.org/education-artical/summer-camps/", "isNew": true, "status": "tbc", "note": "The summer camp pages still describe the 2026 season (ages are given as of August 31, 2026).", "transport": "No camp-run transport listed.", "favorite": true, "favoriteNote": null, "regStatus": "tbd", "regDate": null, "checked": "Nov 17, 2026", "area": "Several locations"},
-  {"name": "Minni × Urbanity Dance – South End", "cost": "$825/week", "ages": "6–11", "ageRange": [6, 11], "description": "Urbanity Dance and Minni team up for a joyful blend of movement and art. Ages 4–7 (Movers + Makers) and 6–11 (Dynamic Designers) split their session between Urbanity's dance programming and Minni's art and design projects. Half-day sessions combinable for a full day.", "dates": "2027 dates not yet posted", "registration": "January 15 — minni.space", "hours": "9:00am – 4:30pm, Mon–Fri · Extended 8:00–9:00am and 4:30–5:30pm", "extendedDay": "Yes", "categories": ["Arts & Creative", "Dance & Movement"], "free": false, "url": "https://minni.space/2026-summer-program-urbanity", "location": "South End, Boston", "status": "tbc", "ref2026": "June 15–19, June 22–26, July 13–17, July 20–24, Aug 24–28, Aug 31–Sept 4", "note": "Minni's Beacon Hill site has posted 2027 dates; the South End sessions have not.", "checked": "Nov 17, 2026", "id": "minni-urbanity-dance-south-end", "regStatus": "tbd", "regDate": null, "transport": null, "favorite": true, "favoriteNote": null, "area": "South End & Roxbury"},
   {"name": "New England Base Camp – Cub Scout Day Camp (JQES Pack 617 Bus)", "cost": "$495/week · $396/week with 20% Adventure Card discount (registered scouts) · Camperships available · Bus may cost up to $100/week additional if not covered by council", "ages": "Cub Scouts (K–5th grade) · Non-scout friends also welcome on the bus", "ageRange": [5, 11], "description": "Spirit of Adventure Council's Cub Scout Day Camp at New England Base Camp in Milton, MA. JQES Pack 617 is organizing a bus from the school both weeks — leaving JQES ~8:30am and returning ~4:30pm each day. To secure a spot on the bus, you must register directly with New England Base Camp AND complete Pack 617's separate bus sign-up form. Registered scouts receive a 20% Adventure Card discount ($396/week) — register using the same email as your scout registration. Camperships available if cost is a barrier. Non-scout friends are also welcome to register and join the bus. Contact Victoria Chan (Pack 617) for bus sign-up and questions.", "dates": "2027 dates not yet posted", "registration": "Register at scoutspirit.org → Cub Scout Day Camp → select Milton Aug 10–14 or Aug 17–21 · Then complete Pack 617 bus form · Contact Victoria Chan for bus details", "hours": "Bus departs JQES ~8:30am · Returns ~4:30pm", "extendedDay": "—", "categories": ["Nature & Outdoor", "Sports & Athletics"], "free": false, "contact": "Pack 617 — contact Victoria Chan for bus sign-up form", "url": "https://www.scoutspirit.org/", "status": "tbc", "ref2026": "Week 1: August 10–14, 2026 · Week 2: August 17–21, 2026", "note": "No 2027 dates posted yet.", "checked": "Nov 17, 2026", "id": "new-england-base-camp-cub-scout-day-camp", "regStatus": "tbd", "regDate": null, "transport": null, "favorite": true, "favoriteNote": null, "location": "Milton", "area": "Greater Boston suburbs"},
   {"name": "LINX Summer Camps (Wellesley)", "cost": "Cost varies", "ages": "3–15", "ageRange": [3, 15], "description": "Fun-filled, innovative summer programs in Wellesley including adventure, performing arts, sports, and STEAM activities with an emphasis on personal growth.", "dates": "2027 dates not yet posted", "registration": "Open for 2027 (session dates still to come)", "hours": "Full day", "extendedDay": "Yes", "categories": [], "free": false, "url": "https://linxcamps.com/", "status": "tbc", "ref2026": "Flexible sessions; extended day available", "note": "Site says registration is open for 2027, but session dates are not listed yet.", "checked": "Nov 17, 2026", "id": "linx-summer-camps-wellesley", "regStatus": "open", "regDate": null, "transport": null, "favorite": false, "favoriteNote": null, "location": "Wellesley", "area": "Greater Boston suburbs"},
   {"name": "MFA Summer Studio Art Classes", "cost": "$653/week", "ages": "5–11 · Classes grouped by age: 5–7, 6–8, 8–10 and 9–11", "ageRange": [5, 11], "description": "Full-day, in-person studio art classes at the Museum of Fine Arts, grouped by age into 5–7, 6–8, 8–10 and 9–11. Students draw, paint, sculpt, collage and print, taking inspiration from the places and cultures in the MFA's collection. Each week has its own theme — past ones include The Art of Play, Making Waves and P(art)y Animals. Worth knowing before you book: the MFA is clear that a museum setting comes with more rules and expectations than most youth programs, and that the day is classroom-based art making with no active play or outdoor time. It suits children who can stay engaged in that setting.", "dates": "2027 dates not yet posted", "registration": "Summer 2027 goes on sale Tue, Dec 8, 2026 · Registration for each class closes at 12pm the Friday before it starts", "hours": "Full day · 9:00am – 4:00pm, Mon–Fri", "extendedDay": "—", "categories": ["Arts & Creative"], "free": false, "location": "465 Huntington Ave, Boston", "url": "https://www.mfa.org/programs/studio-art-classes/kids", "isNew": true, "status": "tbc", "note": "The MFA lists Summer 2027 as going on sale December 8, 2026 — week themes and dates should follow then.", "contact": null, "checked": "Nov 17, 2026", "id": "mfa-summer-art-camp", "regStatus": "opens", "regDate": "2026-12-08", "transport": null, "favorite": false, "favoriteNote": null, "area": "Fenway & Longwood"},
@@ -1181,6 +1186,26 @@ const fill = c => ({type:'pattern', pattern:'solid', fgColor:{argb:c}});
 const thin = {style:'thin', color:{argb:'FFD9D9D9'}};
 const box  = {top:thin, left:thin, bottom:thin, right:thin};
 
+function mondaysSpanning(list){
+  let min = null, max = null;
+  list.forEach(c => parseCampDateRanges(c.dates).forEach(r => {
+    if (!min || r.start < min) min = new Date(r.start);
+    if (!max || r.end   > max) max = new Date(r.end);
+  }));
+  if (!min) return [];
+  const d = new Date(min);
+  d.setDate(d.getDate() - ((d.getDay() + 6) % 7));   // back up to Monday
+  const out = [];
+  while (d <= max && out.length < 16){ out.push(new Date(d)); d.setDate(d.getDate() + 7); }
+  return out;
+}
+function campCoversWeek(c, weekStart){
+  const wEnd = new Date(weekStart); wEnd.setDate(wEnd.getDate() + 6);
+  return parseCampDateRanges(c.dates)
+    .filter(r => (r.end - r.start) / 86400000 >= 1)
+    .some(r => r.start <= wEnd && r.end >= weekStart);
+}
+
 function buildPlannerWorkbook(){
   return loadExcelJS().then(ExcelJS => {
     const rows = exportRows(), head = rows[0], body = rows.slice(1);
@@ -1295,6 +1320,74 @@ function buildPlannerWorkbook(){
     ]});
 
     ws.autoFilter = {from:{row:4,column:1}, to:{row:lastRow, column:nCols}};
+
+    // ── second tab: every week of the summer against every saved camp ──
+    const list = savedCamps().filter(c => c.status === 'confirmed');
+    const weeks = mondaysSpanning(list);
+    if (weeks.length && list.length){
+      const ws2 = wb.addWorksheet('Pick your weeks', {
+        views: [{state:'frozen', xSplit:1, ySplit:3}],
+        pageSetup: {orientation:'landscape', fitToPage:true, fitToWidth:1, fitToHeight:0}
+      });
+      ws2.columns = [{width:18}].concat(list.map(() => ({width:22}))).concat([{width:34}]);
+      const last = list.length + 2;
+
+      ws2.mergeCells(1, 1, 1, last);
+      const t2 = ws2.getCell(1,1);
+      t2.value = 'Pick your weeks · summer 2027';
+      t2.fill = fill(RED); t2.font = {bold:true, size:14, color:{argb:'FFFFFFFF'}};
+      t2.alignment = {vertical:'middle', indent:1};
+      ws2.getRow(1).height = 26;
+
+      ws2.mergeCells(2, 1, 2, last);
+      const s2 = ws2.getCell(2,1);
+      s2.value = 'A tick box means that camp runs that week. Tick the one you want and the week is covered; a dash means it does not run.';
+      s2.fill = fill(CREAM); s2.font = {italic:true, size:10, color:{argb:'FF7B3F00'}};
+      s2.alignment = {vertical:'middle', indent:1};
+      ws2.getRow(2).height = 18;
+
+      const hr2 = ws2.getRow(3);
+      ['Week'].concat(list.map(c => c.name)).concat(['Notes']).forEach((h,i) => {
+        const c = hr2.getCell(i+1);
+        c.value = h; c.fill = fill(i === 0 ? 'FF7B3F00' : RED);
+        c.font = {bold:true, size:10, color:{argb:'FFFFFFFF'}};
+        c.alignment = {vertical:'middle', horizontal:'center', wrapText:true};
+        c.border = box;
+      });
+      hr2.height = 34;
+
+      weeks.forEach((wk, wi) => {
+        const row = ws2.getRow(4 + wi);
+        const lbl = row.getCell(1);
+        lbl.value = 'week of ' + wk.toLocaleDateString('en-US', {month:'short', day:'numeric'});
+        lbl.fill = fill(CREAM); lbl.font = {bold:true, size:10}; lbl.border = box;
+        lbl.alignment = {vertical:'middle'};
+        list.forEach((c, ci) => {
+          const cell = row.getCell(ci + 2);
+          cell.border = box;
+          cell.alignment = {vertical:'middle', horizontal:'center'};
+          if (campCoversWeek(c, wk)){
+            cell.value = '☐';
+            cell.font = {size:12};
+            cell.dataValidation = {type:'list', allowBlank:true, formulae:['"☐,☑"']};
+          } else {
+            cell.value = '—';
+            cell.fill = fill('FFF4F4F4');
+            cell.font = {size:10, color:{argb:GRAY_T}};
+          }
+        });
+        const n = row.getCell(list.length + 2);
+        n.fill = fill(CREAM); n.border = box;
+        row.height = 22;
+      });
+
+      // a ticked box goes green, so a planned summer reads at a glance
+      ws2.addConditionalFormatting({
+        ref: `B4:${String.fromCharCode(65 + list.length)}${3 + weeks.length}`,
+        rules: [{type:'containsText', operator:'containsText', text:'☑', priority:1,
+                 style:{fill:fill(GREEN), font:{bold:true, color:{argb:GREEN_T}}}}]
+      });
+    }
 
     return wb;
   });

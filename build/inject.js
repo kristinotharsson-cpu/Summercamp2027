@@ -142,6 +142,26 @@ const fill = c => ({type:'pattern', pattern:'solid', fgColor:{argb:c}});
 const thin = {style:'thin', color:{argb:'FFD9D9D9'}};
 const box  = {top:thin, left:thin, bottom:thin, right:thin};
 
+function mondaysSpanning(list){
+  let min = null, max = null;
+  list.forEach(c => parseCampDateRanges(c.dates).forEach(r => {
+    if (!min || r.start < min) min = new Date(r.start);
+    if (!max || r.end   > max) max = new Date(r.end);
+  }));
+  if (!min) return [];
+  const d = new Date(min);
+  d.setDate(d.getDate() - ((d.getDay() + 6) % 7));   // back up to Monday
+  const out = [];
+  while (d <= max && out.length < 16){ out.push(new Date(d)); d.setDate(d.getDate() + 7); }
+  return out;
+}
+function campCoversWeek(c, weekStart){
+  const wEnd = new Date(weekStart); wEnd.setDate(wEnd.getDate() + 6);
+  return parseCampDateRanges(c.dates)
+    .filter(r => (r.end - r.start) / 86400000 >= 1)
+    .some(r => r.start <= wEnd && r.end >= weekStart);
+}
+
 function buildPlannerWorkbook(){
   return loadExcelJS().then(ExcelJS => {
     const rows = exportRows(), head = rows[0], body = rows.slice(1);
@@ -256,6 +276,74 @@ function buildPlannerWorkbook(){
     ]});
 
     ws.autoFilter = {from:{row:4,column:1}, to:{row:lastRow, column:nCols}};
+
+    // ── second tab: every week of the summer against every saved camp ──
+    const list = savedCamps().filter(c => c.status === 'confirmed');
+    const weeks = mondaysSpanning(list);
+    if (weeks.length && list.length){
+      const ws2 = wb.addWorksheet('Pick your weeks', {
+        views: [{state:'frozen', xSplit:1, ySplit:3}],
+        pageSetup: {orientation:'landscape', fitToPage:true, fitToWidth:1, fitToHeight:0}
+      });
+      ws2.columns = [{width:18}].concat(list.map(() => ({width:22}))).concat([{width:34}]);
+      const last = list.length + 2;
+
+      ws2.mergeCells(1, 1, 1, last);
+      const t2 = ws2.getCell(1,1);
+      t2.value = 'Pick your weeks · summer 2027';
+      t2.fill = fill(RED); t2.font = {bold:true, size:14, color:{argb:'FFFFFFFF'}};
+      t2.alignment = {vertical:'middle', indent:1};
+      ws2.getRow(1).height = 26;
+
+      ws2.mergeCells(2, 1, 2, last);
+      const s2 = ws2.getCell(2,1);
+      s2.value = 'A tick box means that camp runs that week. Tick the one you want and the week is covered; a dash means it does not run.';
+      s2.fill = fill(CREAM); s2.font = {italic:true, size:10, color:{argb:'FF7B3F00'}};
+      s2.alignment = {vertical:'middle', indent:1};
+      ws2.getRow(2).height = 18;
+
+      const hr2 = ws2.getRow(3);
+      ['Week'].concat(list.map(c => c.name)).concat(['Notes']).forEach((h,i) => {
+        const c = hr2.getCell(i+1);
+        c.value = h; c.fill = fill(i === 0 ? 'FF7B3F00' : RED);
+        c.font = {bold:true, size:10, color:{argb:'FFFFFFFF'}};
+        c.alignment = {vertical:'middle', horizontal:'center', wrapText:true};
+        c.border = box;
+      });
+      hr2.height = 34;
+
+      weeks.forEach((wk, wi) => {
+        const row = ws2.getRow(4 + wi);
+        const lbl = row.getCell(1);
+        lbl.value = 'week of ' + wk.toLocaleDateString('en-US', {month:'short', day:'numeric'});
+        lbl.fill = fill(CREAM); lbl.font = {bold:true, size:10}; lbl.border = box;
+        lbl.alignment = {vertical:'middle'};
+        list.forEach((c, ci) => {
+          const cell = row.getCell(ci + 2);
+          cell.border = box;
+          cell.alignment = {vertical:'middle', horizontal:'center'};
+          if (campCoversWeek(c, wk)){
+            cell.value = '☐';
+            cell.font = {size:12};
+            cell.dataValidation = {type:'list', allowBlank:true, formulae:['"☐,☑"']};
+          } else {
+            cell.value = '—';
+            cell.fill = fill('FFF4F4F4');
+            cell.font = {size:10, color:{argb:GRAY_T}};
+          }
+        });
+        const n = row.getCell(list.length + 2);
+        n.fill = fill(CREAM); n.border = box;
+        row.height = 22;
+      });
+
+      // a ticked box goes green, so a planned summer reads at a glance
+      ws2.addConditionalFormatting({
+        ref: `B4:${String.fromCharCode(65 + list.length)}${3 + weeks.length}`,
+        rules: [{type:'containsText', operator:'containsText', text:'☑', priority:1,
+                 style:{fill:fill(GREEN), font:{bold:true, color:{argb:GREEN_T}}}}]
+      });
+    }
 
     return wb;
   });

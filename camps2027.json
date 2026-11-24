@@ -36,14 +36,14 @@
  {
   "name": "Minni Summer Program – Beacon Hill",
   "cost": "$660/week · Extended day $220/week",
-  "ages": "4–10",
+  "ages": "4–10 · Maximum 16 per session",
   "ageRange": [
    4,
    10
   ],
-  "description": "Eleven individually themed weeks of art + design programming led by professional teaching artists. Each week explores a new creative theme through hands-on projects, outdoor art-making, and field trips to local galleries and studios.",
-  "dates": "June 21 – September 2, 2027 · Eleven themed weekly sessions, Mon–Thu",
-  "registration": "Open now",
+  "description": "Ten individually themed weeks of art and design for little artists, Monday to Thursday, with no more than 16 children per session. 2027 themes: Creative Carnival, Animal Adventures, Playful Potions, Toy Factory, Music Makers, Aquatic Artists, Nature Lovers, People + Places, Great Galaxies and Minni in Motion. Led by teaching artists and professional educators, with outdoor art-making when the weather allows and field trips to local galleries, shops and studios. Note there is no week of July 12.",
+  "dates": "Jun 21–24 · Jun 28–Jul 1 · Jul 5–8 · Jul 19–22 · Jul 26–29 · Aug 2–5 · Aug 9–12 · Aug 16–19 · Aug 23–26 · Aug 30–Sep 2, 2027",
+  "registration": "Open now — book at hisawyer.com/minni · 10% off with code EARLYBIRDSUMMER if you book before Dec 31, 2026",
   "hours": "9:00am – 3:00pm, Mon–Thu · Extended day to 5:00pm",
   "extendedDay": "Yes",
   "categories": [
@@ -53,14 +53,47 @@
   "url": "https://minni.space/summer-program-beacon-hill",
   "location": "125 Charles St, Boston",
   "status": "confirmed",
-  "checked": "Nov 17, 2026",
+  "checked": "Nov 23, 2026",
   "id": "minni-summer-program-beacon-hill",
   "regStatus": "open",
   "regDate": null,
   "transport": "No camp-run transport — drop-off and pick-up at 125 Charles St.",
   "favorite": true,
   "favoriteNote": null,
-  "area": "Beacon Hill & Back Bay"
+  "area": "Beacon Hill & Back Bay",
+  "note": null
+ },
+ {
+  "name": "Minni × Urbanity Dance – South End",
+  "cost": "Check minni.space for 2027 rates · 10% off with code EARLYBIRDSUMMER before Dec 31, 2026 · A full day means registering separately with both Minni and Urbanity",
+  "ages": "4–10",
+  "ageRange": [
+   4,
+   10
+  ],
+  "description": "Third year of Minni and Urbanity Dance teaming up in the South End, for ages 4 to 10, Monday to Friday. New this year: Movers + Makers runs in the morning and Dynamic Designers in the afternoon, so you can do a full day of Minni or split the day between Minni's art programming and Urbanity's dance studios. Minni's half is hosted at Mayne in the South End. Design projects rotate each week. A full day needs two registrations, one with Minni and one with Urbanity.",
+  "dates": "Jun 14–18 · Jun 21–25 · Jun 28–Jul 2 · Aug 16–20 · Aug 23–27, 2027 · Five weeks",
+  "registration": "Open now — book at hisawyer.com/minni · 10% off with code EARLYBIRDSUMMER if you book before Dec 31, 2026",
+  "hours": "Movers + Makers 9:00am–12:30pm · Dynamic Designers 1:00–4:30pm · Full day 9:00am–4:30pm, Mon–Fri",
+  "extendedDay": "Yes",
+  "categories": [
+   "Arts & Creative",
+   "Dance & Movement"
+  ],
+  "free": false,
+  "url": "https://minni.space/summer-program-urbanity",
+  "location": "Mayne, South End, Boston · Urbanity Dance studios for the other half-day",
+  "status": "confirmed",
+  "ref2026": "June 15–19, June 22–26, July 13–17, July 20–24, Aug 24–28, Aug 31–Sept 4",
+  "note": null,
+  "checked": "Nov 23, 2026",
+  "id": "minni-urbanity-dance-south-end",
+  "regStatus": "open",
+  "regDate": null,
+  "transport": "No camp-run transport — South End.",
+  "favorite": true,
+  "favoriteNote": null,
+  "area": "South End & Roxbury"
  },
  {
   "name": "Nike Tennis Camp at MIT",
@@ -367,38 +400,6 @@
   "regDate": null,
   "checked": "Nov 17, 2026",
   "area": "Several locations"
- },
- {
-  "name": "Minni × Urbanity Dance – South End",
-  "cost": "$825/week",
-  "ages": "6–11",
-  "ageRange": [
-   6,
-   11
-  ],
-  "description": "Urbanity Dance and Minni team up for a joyful blend of movement and art. Ages 4–7 (Movers + Makers) and 6–11 (Dynamic Designers) split their session between Urbanity's dance programming and Minni's art and design projects. Half-day sessions combinable for a full day.",
-  "dates": "2027 dates not yet posted",
-  "registration": "January 15 — minni.space",
-  "hours": "9:00am – 4:30pm, Mon–Fri · Extended 8:00–9:00am and 4:30–5:30pm",
-  "extendedDay": "Yes",
-  "categories": [
-   "Arts & Creative",
-   "Dance & Movement"
-  ],
-  "free": false,
-  "url": "https://minni.space/2026-summer-program-urbanity",
-  "location": "South End, Boston",
-  "status": "tbc",
-  "ref2026": "June 15–19, June 22–26, July 13–17, July 20–24, Aug 24–28, Aug 31–Sept 4",
-  "note": "Minni's Beacon Hill site has posted 2027 dates; the South End sessions have not.",
-  "checked": "Nov 17, 2026",
-  "id": "minni-urbanity-dance-south-end",
-  "regStatus": "tbd",
-  "regDate": null,
-  "transport": null,
-  "favorite": true,
-  "favoriteNote": null,
-  "area": "South End & Roxbury"
  },
  {
   "name": "New England Base Camp – Cub Scout Day Camp (JQES Pack 617 Bus)",
